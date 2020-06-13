@@ -10,7 +10,6 @@
 		$first_name = $_POST['first_name'];
 		$middle_name = $_POST['mname'];
 		$last_name = $_POST['last_name'];
-		$age = $_POST['age'];
 		$gender = $_POST['gender'];
 		$dob = $_POST['dob'];
 		$pob = $_POST['pob'];
@@ -20,7 +19,7 @@
 		$fam_add = $_POST['fam_add'];
 		$phone = $_POST['phone'];
 
-		$view->editStudName($first_name, $middle_name, $last_name, $age, $gender, $dob, $pob, $religion, $last_school, $school_add, $fam_add, $phone);
+		$view->editStudName($first_name, $middle_name, $last_name, $gender, $dob, $pob, $religion, $last_school, $school_add, $fam_add, $phone);
 	}
 	else if ($func == 'editSibs') {
 		$first_name = $_POST['givenName'];

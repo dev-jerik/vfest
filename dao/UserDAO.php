@@ -80,7 +80,6 @@
                     $info[0] = $res['last_name'];
                     $info[1] = $res['first_name'];
                     $info[2] = $res['middle_name'];
-                    $info[3] = $res['age'];
                     $info[4] = $res['gender'];
                     $info[5] = $res['dob'];
                     $info[6] = $res['pob'];
