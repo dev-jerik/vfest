@@ -14,4 +14,9 @@
             $arrayParam = array(0=>$studID, 1=>$offerID);
             return $this->executeQuery($sql, $arrayParam);
         }
+
+        public function getStudents(){
+            $sql = "SELECT * FROM tbl_students ORDER BY studID DESC";                    
+            return $this->executeQuery($sql, null, "fetchAll");
+        }
     }

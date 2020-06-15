@@ -97,6 +97,7 @@
                 if($stmt->rowCount() == 1){
                     $_SESSION['user_id'] = $userRow['user_ID'];
                     $_SESSION['user_name'] = $userRow['username'];
+                    $_SESSION['user_code'] = $userRow['usercode'];
                     return true;
                 }else {
                     return false;

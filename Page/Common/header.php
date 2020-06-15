@@ -1,116 +1,107 @@
 <?php
-    ob_start();
-    include_once '../Model/Config.php';
-    include_once '../Model/UserModel.php';
+    include_once '../../Model/Config.php';
+    include_once '../../Model/UserModel.php';
     $user = new UserModel($DB_con);
     if(isset($_GET['logout'])){
         if($user->doLogout()){
             header("Location: ../../index.php");  
         }
     }
-    if (!isset($_SESSION["user_id"])) {
-          session_destroy();
-          header("Location: ../../");  
-    }
-    $appPersonel = "FACULTY";
-    if($user->isDean($_SESSION['user_id'])){
-        $appPersonel="DEAN";
-    }else if($user->isReg($_SESSION['user_id'])){
-        $appPersonel="REGISTRAR";
-    }
+      //  die($_SESSION['active_page']);
+
 ?>
 <!Doctype html>
 <html>
 <head>
-    <title>VSU-Villaba SRMS</title>
+    <title>VSU-VFEST</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../Assets/images/vsu_logo2.png">
-    <link rel="stylesheet" href="../Assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../Assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../Assets/css/customCss.css">
-    <script src="../Assets/js/jquery.min.js"></script>
-    <script src="../Assets/js/bootstrap.min.js"></script>
+    <link rel="icon" href="../../Assets/images/vsu_logo2.png">
+    <link rel="stylesheet" href="../../Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <link rel="stylesheet" href="../../Assets/css/customCss.css">
+    <script src="../../Assets/js/jquery.min.js"></script>
+    <script src="../../Assets/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .sidenav {
+          height: 100%;
+          width: 200px;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: #f1f1f1;
+          overflow-x: hidden;
+        }
+
+        .sidenav a {
+          padding: 8px 8px 6px 16px;
+          text-decoration: none;
+          font-size: 16px;
+          color: #818181;
+          display: block;
+        }
+
+        .sidenav a:hover {
+          background-color: #ffff;
+        }
+
+        .main {
+          margin-left: 200px; /* Same as the width of the sidenav */
+          font-size: 28px; /* Increased text to enable scrolling */
+          padding: 0px 10px;
+          top: 0;
+        }
+
+        .sidebar-profile{
+            padding: 12px;
+            border-bottom: 1px dotted gray;
+        }
+        a.active-page {
+            background: #555;
+        }
+
+        .sidenav a:hover:not(.active-page) {
+          background-color: #ffff;
+        }
+
+    </style>
 </head>
-<body>
+
+<body >
 <!--Wrapper-->
-<div id="container">
-    <nav class="navbar navbar-inverse linkFont">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header" >
-                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="../Faculty/" style="color: #fff; " class="navbar-brand">Grade Submission</a>
+<div id="wrapper">
+    <div class="sidenav">
+        <div class="sidebar-profile">
+            <div class="text-center">
+                <i class="fa fa-user-circle"></i><br/>
+                <small><?php echo strtoupper($_SESSION['user_code']) ?></small>               
             </div>
-            <!-- Collection of nav links, forms, and other content for toggling -->
-            <div id="navbarCollapse" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li id='home'><a href="../../dept/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                    <?php if(!$user->isReg($_SESSION["user_id"])): ?>
-                    <li id='f-courses'><a href="../Faculty/subject.php" ><span class="glyphicon glyphicon-book"></span> Subjects</a></li>
-                    <li id='f-gradeSubmission'><a href="../Faculty/gradingTerm.php" ><i class="fa fa-file-text-o"></i> Submit Grades</a></li>
-                    <?php endif;?>
+        </div>  
 
-                    <?php if($user->isReg($_SESSION["user_id"])): ?>
-                        <li id='f-headApproval'><a href="../Faculty/approval.php" ><i class="fa fa-check"></i>  Registrar Approval </a></li>
-                        <li id='f-changeGrade'><a href="../Faculty/changeGrade.php" ><i class="fa fa-file-text-o"></i> Change Grade</a></li>
-                        <li class="dropdown" id='f-gradesheetGeneration'>
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
-                                <i class="glyphicon glyphicon-print"></i>  
-                                Print Report <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                 <li >
-                                    <a href="../report/" >
-                                        <i class="fa fa-file-text-o"></i> &nbsp; GradeSheet by Instructor</b>
-                                    </a>
-                                </li>
-                                <li >
-                                    <a href="../report/studentGradeSheetIndex.php" >
-                                        <i class="fa fa-file-text-o"></i> &nbsp; GradeSheet by Student</b>
-                                    </a>
-                                </li>
-                                <li >
-                                    <a href="../report/classRoosterIndex.php" >
-                                        <i class="fa fa-file-text-o"></i> &nbsp; Class Rooster</b>
-                                    </a>
-                                </li>
-                                <li >
-                                    <a href="../report/studentGrades.php" >
-                                        <i class="fa fa-file-text-o"></i> &nbsp; Student Grades</b>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                       
-                    <?php endif;?>
+        <!-- Admin Menu -->  
+        <?php if($_SESSION['user_code'] == "admin"): ?>
+            <a href="index.php" class=<?php echo ($_SESSION['active_page'] == "admin/home")? "active-page":"";?>> Home </a>       
+            <a href="student_files.php" class=<?php echo ($_SESSION['active_page'] == "admin/student_files")? "active-page":"";?>>Student Files</a>
+            <a href="#schoolstafffiles">School Staff Files</a>
+            <a href="#classfiles">Class Files</a>
+        <?php endif; ?>
+        <!-- END of Admin Menu -->  
 
-                    <?php if($user->isDean($_SESSION["user_id"])): ?>
-                        <li id='f-headApproval'><a href="../Faculty/approval.php" ><i class="fa fa-check"></i>  Dean Approval </a></li>
-                    <?php endif;?>
+        <?php if($_SESSION['user_code'] == "teacher"): ?>
+            <a href="#teacherHOME" class=<?php echo ($_SESSION['active_page'] == "teacher/home")? "active-page":"";?>> Home </a>       
+            <a href="#classfiles" class=<?php echo ($_SESSION['active_page'] == "teacher/class_files")? "active-page":"";?>>Class Files</a>
+            <a href="#leaverequest">Leave Request</a>
+            <a href="#myprofile">My Profile</a>
+        <?php endif; ?>
 
-                    <?php if($user->isDeptHead($_SESSION["user_id"])): ?>                  
-                        <li id='f-headApproval'><a href="../Faculty/ApprovalTerm.php" ><i class="fa fa-check"></i>  Head Approval </a></li>
-                    <?php endif;?> 
-                    
-                    <li id='f-manageAccount' ><a  href="../Faculty/manageAccount.php"><span class="glyphicon glyphicon-cog"></span> Manage Account</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <b><?php echo $appPersonel; ?>:</b> <?php  echo isset($_SESSION['fullName'])?$_SESSION['fullName']: "";?> 
-                        </a>
-                        <ul class="dropdown-menu dropdown-caret dropdown-menu-right ">
-                            <li><a href="../../controller/UserLogout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
+        <form>
+            <button type=submit name="logout">Logout</button>
+        </form>
+    </div>
+
+
+</div>

@@ -1,7 +1,9 @@
-<?php
-include "../../Common/header.php"
-?>
-    Student Module Here
-<?php
-include "../../Common/footer.php"
-?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Error Page</title>
+</head>
+<body>
+	<h1>Unauthorized access</h1>
+</body>
+</html>

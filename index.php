@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	if(isset($_POST["login"])){
 		include_once 'Model/Config.php';
     	include_once 'Model/UserModel.php';
@@ -7,7 +8,7 @@
     	$username = $_POST["username"];
     	$password = $_POST["password"];
     	if ($user->doLogin($username, $password)) {
-    		die("Successfully Login.");
+    		header('Location: page/admin/index.php');
     	} else {
     		die("Bad Credentials.");
     	}
