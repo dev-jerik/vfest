@@ -6,7 +6,6 @@
         public function login($uname, $pword) {
             try {
                 $this->openConnection();
-
                 $stmt = $this->dbh->prepare("SELECT * FROM tbl_users WHERE username=? and password=?");
                 $stmt->bindParam(1, $uname);
                 $stmt->bindParam(2, $pword);
@@ -16,6 +15,7 @@
                     $_SESSION['id'] = $res["user_ID"];
                     $_SESSION['name'] = $res["username"];
                     $_SESSION['userCode'] = $res["usercode"];
+                    $_SESSION['perID'] = $res["perID"];
                     if($_SESSION['userCode'] == "admin")
                         header("Location: admin/home.php");
                     else if ($_SESSION['userCode'] == "teacher")

@@ -1,11 +1,11 @@
 <?php
-
-  if(!$login->log_test()){
-    header('Location: ../index.php');
+ if(isset($_SESSION['id'])){
+      $name = $_SESSION['name'];
+      $userCode = $_SESSION['userCode'];
   } else {
-    $name = $_SESSION['name'];
-    $userCode = $_SESSION['userCode'];
+      header('Location: ../index.php');
   }
+   
 ?>
 <!DOCTYPE html>
 <html>
@@ -72,9 +72,9 @@
           <li>
             <?php
               if($_SESSION['page'] == "class"){
-                echo '<a class="active" href="#"><i id="sidebarIcon"></i>Class Files</a>';
+                echo '<a class="active" href="class_files.php"><i id="sidebarIcon"></i>Class Files</a>';
               } else {
-                echo '<a href="#"><i id="sidebarIcon"></i>Class Files</a>';
+                echo '<a href="class_files.php"><i id="sidebarIcon"></i>Class Files</a>';
               }
             ?>
           </li>
