@@ -1,74 +1,58 @@
-<!DOCTYPE HTML>
 <?php
-	session_start();
-    require "dao/UserDAO.php";
+	if(isset($_POST["login"])){
+		include_once 'Model/Config.php';
+    	include_once 'Model/UserModel.php';
+    	$user = new UserModel($DB_con);
 
-    $log = new UserDAO();
-    if($log->log_test()){
-        if($_SESSION['userCode'] == "Admin")
-            header("Location: admin/home.php");
-        else if ($_SESSION['userCode'] == "Teacher")
-            header("Location: teacher/home.php");
-        else if ($_SESSION['userCode'] == "Accounting")
-            header("Location: accounting/home.php");
-        else
-            header("Location: principal/home.php");
-    }
-    
-    if(isset($_POST["login"])){
-        $msg = "";
-    	$uname = $_POST["uname"];
-    	$pword = $_POST["pword"];
-        $log->login($uname, $pword);
-        if($log->login($uname, $pword)==false){
-            $msg = "Wrong Email or Password";
-        }
+    	$username = $_POST["username"];
+    	$password = $_POST["password"];
+    	if ($user->doLogin($username, $password)) {
+    		die("Successfully Login.");
+    	} else {
+    		die("Bad Credentials.");
+    	}
     } 
 ?>
+<!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Student Records Management System</title>
-		<link rel="stylesheet" href="bootstrap/css/main.css">
-		<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-		<link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
-		<script src="bootstrap/js/jquery.js"></script>
-		<script src="bootstrap/js/bootstrap.js"></script>
-
+		<title>Login Page</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="icon" href="Assets/images/vsu_logo2.png">
+	    <link rel="stylesheet" href="Assets/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="Assets/css/font-awesome.min.css">
+	    <link rel="stylesheet" href="Assets/css/customCss.css">
+	    <script src="Assets/js/jquery.min.js"></script>
+	    <script src="Assets/js/bootstrap.min.js"></script>
 	</head>
-	<body class="index"  style="background-color:grey;">
-		<?php require "controller/backstretch.php" ?>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4"></div>
-				<div class="col-sm-4" style="margin-top: 100px">
-			    	<div class="panel panel-success">
-				        <div class="panel-heading"><b>Login First!</b></div>
-				        <div class="panel-body">
-							<form action="" name="myForm" method='POST'>
-                                <?php
-                                    if(isset($_POST["login"]) && !$msg==""){
-                                        echo "<div class='alert alert-warning'>
-                                                <strong>Warning!</strong> $msg
-                                              </div>";
-                                    }
-                                ?>
-                                
-								<div class="form-group">
-									<label for="email">Username:</label>
-									<input type="tet" class="form-control" name="uname" id="uname" placeholder="Enter username" required>
-								</div>
-								<div class="form-group">
-									<label for="pwd">Password:</label>
-									<input type="password" class="form-control" name="pword" id="pword" placeholder="Enter password" required>
-								</div>
-								<button type="submit" class="btn btn-success" name="login"><span class="glyphicon glyphicon-log-in"></span>Login</button>
-								<!-- <a data-toggle="modal" data-target="#myModal" href="#myModal">Sign Up</a> -->
-							</form>
+	<body style="background-color:grey;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div style="margin-top: 100px; background: #ffffff; border-radius: 4px;">		
+					<form method="POST">
+						<div class="login-header bg-success" style="border-top-left-radius: 4px; border-top-right-radius: 4px;
+						padding: 4px 4px 4px 8px">
+							<h4>Login Form</h4>
 						</div>
-					</div>
-                </div>
-            </div>
+
+						<div class="loginForm" style="padding: 10px;">
+							<div class="form-group">
+								<label for="username">Username</label>
+								<input type="input" class="form-control" name="username" placeholder="Username" required>
+							</div>
+							<div class="form-group">
+								<label for="password">Password</label>
+								<input type="password" class="form-control" name="password" placeholder="Password" required>
+							</div>
+							<button type="submit" name="login" class="btn btn-success">Login</button>
+						</div>	
+					</form>									
+				</div>
+			</div>
 		</div>
+	</div>
 	</body>
 </html>
 
