@@ -358,6 +358,76 @@
     </div>
 </div>
 
+<!-- =============================================== Add Class Subject ======================== -->
+<div class="modal fade" id="addClassSubject" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Subjects for <?php echo $level; ?></h4>
+            </div>
+            <div class="modal-body">
+                <div id="account-edit">
+                    <form class="form-horizontal" name='myForm' role="form" action="#" onsubmit="return validateForm()" method="POST">
+                        <?php
+                            $ctrInfo = 0;
+                            if($info[0] != '0') { 
+                                $ctrInfo = count($info); 
+                            }
+                            $num = 8 - $ctrInfo;
+                            $ctr = 1;
+                            while($num != 0){
+                                echo '
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1"> Subject '.$ctr.' </label>
+                                        <div class="col-sm-8"><input name="subject'.$ctr.'"></div>
+                                    </div>
+                                ';
+                                $num--;
+                                $ctr++;
+                            }
+                        ?>
+                        <br>
+                        <center><button type="submit" class="btn btn-success" name="updateProfile">Add</button></center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =============================================== Edit Class Subject ======================== -->
+<div class="modal fade" id="editClassSubject" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Subjects for <?php echo $level; ?></h4>
+            </div>
+            <div class="modal-body">
+                <div id="account-edit">
+                    <form class="form-horizontal" name='myForm' role="form" action="#" onsubmit="return validateForm()" method="POST">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1"> Subject </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="subjectName" class="form-control" name="subjectName" value="<?php echo $info[0]; ?>" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1"> Number of Hour </label>
+                            <div class="col-sm-6">
+                                <input type="text" id="subjectHour" class="form-control" name="subjectHour"  required/>
+                            </div>
+                        </div>
+                        <br>
+                        <center><button type="submit" class="btn btn-success" name="updateProfile">Update</button></center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     function viewInfo(str) {
         if (str == "n") {

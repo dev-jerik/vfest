@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	require "../../dao/UserDAO.php";
+	require "../dao/UserDAO.php";
 	$view = new UserDAO;
 	$func = $_GET['func'];
 	
@@ -21,17 +21,17 @@
 
 		$view->editStudName($first_name, $middle_name, $last_name, $gender, $dob, $pob, $religion, $last_school, $school_add, $fam_add, $phone);
 	}
-	else if ($func == 'editSibs') {
-		$first_name = $_POST['givenName'];
-		$middle_name = $_POST['dob'];
+	else if($func == 'editSiblingsName') {
+		$givenName = $_POST['givenName'];
+		$sdob = $_POST['sdob'];
 		
 
-		$view->editSibsName($givenName, $dob);
+		$view->editSibsName($givenName, $sdob);
 	}
 	else if ($func == 'editparent') {
-		$first_name = $_POST['pfirst_name'];
-		$middle_name = $_POST['pmiddle_name'];
-		$last_name = $_POST['plast_name'];
+		$pfirst_name = $_POST['pfirst_name'];
+		$pmiddle_name = $_POST['pmiddle_name'];
+		$plast_name = $_POST['plast_name'];
 		$psex = $_POST['psex'];
 		$occupation = $_POST['occupation'];
 		$VSUconnected = $_POST['VSUconnected'];
@@ -42,5 +42,12 @@
 
 		$view->editParentsName($pfirst_name, $pmiddle_name, $plast_name, $psex, $occupation, $VSUconnected, $deptoffice, $officehead, $officeAdd);
 	}
+	else if($func == 'editRole') {
+		$role = $_POST['role'];
+		
+
+		$view->editRole($role);
+	}
 	echo '<script>alert("update records")</script>'; 
+	header("../admin/students.php");
 ?>

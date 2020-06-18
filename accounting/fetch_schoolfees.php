@@ -1,20 +1,21 @@
 <?php
+require "modalfees.php";
+
 $connect = mysqli_connect("localhost", "root", "", "vfes_info");
 $output = '';
 if(isset($_POST["query"]))
 {
  $search = mysqli_real_escape_string($connect, $_POST["query"]);
  $query = "
- 	SELECT * FROM tbl_personproof
- 	WHERE l_name LIKE '%".$search."%'
- 	OR f_name LIKE '%".$search."%'
- 	ORDER BY perID DESC ";
+ 	SELECT * FROM tbl_schoolfees
+ 	WHERE description LIKE '%".$search."%'
+ 	ORDER BY code DESC ";
 }
 else
 {
 
  $query = "
-  SELECT * FROM tbl_personproof ORDER BY perID DESC
+  SELECT * FROM tbl_schoolfees ORDER BY code DESC
  ";
 }
 $result = mysqli_query($connect, $query);
@@ -24,10 +25,9 @@ if(mysqli_num_rows($result) > 0)
   <div class="table-responsive">
    <table class="table table bordered">
     <tr>
-    	<th class="table-header" width="20%">Staff ID</th>
-      	<th class="table-header">Last Name</th>
-      	<th class="table-header">First Name</th>
-      	<th class="table-header">Middle Name</th>
+    	<th class="table-header" width="20%">Code</th>
+      	<th class="table-header">Description</th>
+      	<th class="table-header">Amount</th>
         <th class="table-header" width="10%" colspan="2" style="text-align:center">Action</th>
     </tr>
  ';
@@ -35,15 +35,14 @@ if(mysqli_num_rows($result) > 0)
  {
   $output .= '
    <tr>
-    <td>'.$row["perID"].'</td>
-    <td>'.$row["l_name"].'</td>
-    <td>'.$row["f_name"].'</td>
-    <td>'.$row["m_name"].'</td>
+    <td>'.$row["code"].'</td>
+    <td>'.$row["description"].'</td>
+    <td>'.$row["amount"].'</td>
     <td style="text-align:center">
-      <a id="edit" href="updatestaff.php?perID='.$row["perID"].'" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+      <a id="viewfees" data-toggle="modal" data-target="#upschoolFees"?code='.$row["code"].'" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
     </td>
     <td style="text-align:center">
-      <a id="delete" title="Delete"><span class="glyphicon glyphicon-remove"></span></a>
+      <a id="viewfees" href="deleteSF.php?code='.$row["code"].'" title="Delete"><span class="glyphicon glyphicon-remove"></span></a>
     </td>
    </tr>
   ';
@@ -56,5 +55,4 @@ else
 }
 
 
-
-?>
+  ?>

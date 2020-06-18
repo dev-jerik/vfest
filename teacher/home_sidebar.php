@@ -80,15 +80,6 @@
           </li>
           <li>
             <?php
-              if($_SESSION['page'] == "leave"){
-                echo '<a class="active" href="#"><i id="sidebarIcon"></i>Leave Request</a>';
-              } else {
-                echo '<a href="#"><i id="sidebarIcon"></i>Leave Request</a>';
-              }
-            ?>
-          </li>
-          <li>
-            <?php
               if($_SESSION['page'] == "profile"){
                 echo '<a class="active" href="myprofile.php"><i id="sidebarIcon"></i>My Profile</a>';
               } else {

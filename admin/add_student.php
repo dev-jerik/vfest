@@ -5,7 +5,6 @@
 	$login = new UserDAO;
 	$cat = "StudID";
 
-
 	if(!$login->log_test()){
 		header('Location: ../index.php');
 	} else {

@@ -56,13 +56,10 @@ if(mysqli_num_rows($result) > 0)
     <td>'.$row["first_name"].'</td>
     <td>'.$row["middle_name"].'</td>
     <td style="text-align:center">
-      <a id="viewfees" href="fees.php?stud_id='.$row["studID"].'" title="View Fees"><span class="glyphicon glyphicon-eye-open"></span></a>
+      <a id="edit" href="update_students.php?stud_id='.$row["studID"].'" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
     </td>
     <td style="text-align:center">
-      <a id="viewfees" href="fees.php?stud_id='.$row["studID"].'" title="View Grades"><span class="glyphicon glyphicon-edit"></span></a>
-    </td>
-     <td style="text-align:center">
-      <a id="viewfees" href="fees.php?stud_id='.$row["studID"].'" title="View Grades"><span class="glyphicon glyphicon-eye-open"></span></a>
+      <a id="delete" title="Delete"><span class="glyphicon glyphicon-remove"></span></a>
     </td>
    </tr>
   ';

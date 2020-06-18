@@ -3,13 +3,14 @@
 	session_start();
 	require "../dao/UserDAO.php";
 	$login = new UserDAO;
+	$cat = "StudID";
 
 	if(!$login->log_test()){
 		header('Location: ../index.php');
 	} else {
 		$name = $_SESSION['name'];
 	}
-	$_SESSION['page'] = "class";
+	$_SESSION['page'] = "students";
 ?>
 
 <!DOCTYPE html>
@@ -32,31 +33,24 @@
 				<div class="col-sm-9">
 					<div class="main-body">
 						<div class="page-header clearfix">
-	                        <h2 class="pull-left">Subjects</h2>
+	                        <h2 class="pull-left">School Fees</h2>
+	                        <div class="pull-right">
+	                            <a  class="btn btn-success" data-toggle='modal' data-target='#schoolFees'>Add School Fees</a>
+	                        </div>
                    		</div>
 	                    <div>
-	                    	<div class="container-fluid">
-								<div class="row">
-									<div class="col-sm-3"></div>
-									<div class="col-sm-6">
-				                        <form name='frmSearch' action='' method='post'>
-				                        	<table width="100%">
-				                        		<tr>
-				                        			<th>Subject</th>
-				                        			<th>Number of Hours</th>
-				                        			<th></th>
-				                        		</tr>
-				                        	</table>
-				                            <br/>
-				                        </form>
-				                    </div>
-									<div class="col-sm-3"></div>
-			                    </div>
-		                    </div>
+	                        <form name='frmSearch' action='' method='post'>
+	                            <input type="text" name="search_text" id="search_text" placeholder="Enter Description" class="form-control" />
+	                            <br/>
+	                            <div id="result"></div>
+	                        </form>
 	                    </div>
 					</div>
                 </div>
             </div>
+            <?php 
+							require "modalfees.php";
+				        ?>
         </div>
     </body>
 </html>
@@ -67,7 +61,7 @@
          function load_data(query)
          {
               $.ajax({
-                   url:"fetch_class.php",
+                   url:"fetch_schoolfees.php",
                    method:"POST",
                    data:{query:query},
                    success:function(data)
@@ -76,7 +70,7 @@
                    }
               });
         }
-        $('#search_text').change(function(){
+        $('#search_text').keyup(function(){
               var search = $(this).val();
               if(search != '')
               {

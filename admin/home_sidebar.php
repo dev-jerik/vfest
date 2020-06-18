@@ -87,18 +87,14 @@
               }
             ?>
           </li>
-          <li class="nav-item dropdown">
+          <li>
             <?php
-            if($_SESSION['page'] == "class"){
-              echo '<a class="active" href="#demo" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span>&nbsp;&nbsp;Class Files</a>';
-            } else {
-              echo '<a href="#demo" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span>&nbsp;&nbsp;Class Files</a>';
-            }
+              if($_SESSION['page'] == "class"){
+                echo '<a class="active" href="class.php"><i id="sidebarIcon"></i>Class Files</a>';
+              } else {
+                echo '<a href="class.php"><i id="sidebarIcon"></i>Class Files</a>';
+              }
             ?>
-            <div id="demo" class="collapse">
-              <a href="class.php"><span class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;<i id="sidebarIcon"></i>View Class</a>
-              <a href="class_subjects.php"><span class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;<i id="sidebarIcon"></i>View Subjects</a>
-            </div>
           </li>
           <li>
             <?php

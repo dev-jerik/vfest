@@ -22,7 +22,7 @@
                         header("Location: teacher/home.php");
                     else if ($_SESSION['userCode'] == "accounting")
                         header("Location: accounting/home.php");
-                    else
+                    else if ($_SESSION['userCode'] == "principal")
                         header("Location: principal/home.php");
                 }else{
                     return false;
@@ -99,26 +99,25 @@
             }
         }
 
-        public function editStudName($first_name, $middle_name, $last_name, $age, $gender, $dob, $pob, $religion, $last_school, $school_add, $fam_add, $phone ,$studID) {
+        public function editStudName($first_name, $middle_name, $last_name, $gender, $dob, $pob, $religion, $last_school, $school_add, $fam_add, $phone ,$studID) {
             try{
                 $this->openConnection();
 
-                $stmt = $this->dbh->prepare("UPDATE tbl_students SET studID=? first_name=?, middle_name=?, last_name=?, age=?, gender=?, dob=?, pob=?, religion=?, last_school=?, school_add=?, fam_add=?, phone=?  WHERE studID=?");
+                $stmt = $this->dbh->prepare("UPDATE tbl_students SET studID=? first_name=?, middle_name=?, last_name=?, gender=?, dob=?, pob=?, religion=?, last_school=?, school_add=?, fam_add=?, phone=?  WHERE studID=?");
                                                       
                 $stmt->bindParam(1, $last_name);   
                 $stmt->bindParam(2, $first_name);   
                 $stmt->bindParam(3, $middle_name);   
-                $stmt->bindParam(4, $age);   
-                $stmt->bindParam(5, $gender);   
-                $stmt->bindParam(6, $dob);  
-                $stmt->bindParam(7, $pob);  
-                $stmt->bindParam(8, $dob);
-                $stmt->bindParam(9, $religion);
-                $stmt->bindParam(10, $last_school);
-                $stmt->bindParam(11, $school_add);
-                $stmt->bindParam(12, $fam_add);
-                $stmt->bindParam(13, $phone); 
-                $stmt->bindParam(14, $studID);                                                   
+                $stmt->bindParam(4, $gender);   
+                $stmt->bindParam(5, $dob);  
+                $stmt->bindParam(6, $pob);  
+                $stmt->bindParam(7, $dob);
+                $stmt->bindParam(8, $religion);
+                $stmt->bindParam(9, $last_school);
+                $stmt->bindParam(10, $school_add);
+                $stmt->bindParam(11, $fam_add);
+                $stmt->bindParam(12, $phone); 
+                $stmt->bindParam(13, $studID);                                                   
                 
                 $stmt->execute(); 
 
@@ -196,14 +195,14 @@
                 echo $e->getMessage();
             }
         }
-        public function editSiblingsName($givenName, $dob) {
+        public function editSiblingsName($givenName, $sdob) {
             try{
                 $this->openConnection();
 
-                $stmt = $this->dbh->prepare("UPDATE tbl_siblings SET givenName=?, dob=? WHERE sib_ID=?");
+                $stmt = $this->dbh->prepare("UPDATE tbl_siblings SET givenName=?, sdob=? WHERE sib_ID=?");
                                                       
                 $stmt->bindParam(1, $givenName);   
-                $stmt->bindParam(2, $dob);   
+                $stmt->bindParam(2, $sdob);   
                 $stmt->execute(); 
 
             } 
@@ -370,6 +369,59 @@
                 echo $e->getMessage();
             }
         }
+        public function getClassStudents($year, $levelId) {
+            try{
+                $this->openConnection();
+
+                $stmt = $this->dbh->prepare("SELECT stud.* FROM tbl_class as class
+                                            INNER JOIN tbl_students stud on stud.studID=class.studID
+                                            WHERE class.sy='".$year."' AND class.gradelevel='".$levelId."'");
+                $stmt->execute();
+
+                $i=0;
+                while($res=$stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $array[$i][0] = $res['last_name'];
+                    $array[$i][1] = $res['first_name'];
+                    $array[$i][2] = $res['middle_name'];
+                    $array[$i][4] = $res['gender'];
+                    $array[$i][5] = $res['dob'];
+                    $array[$i][6] = $res['pob'];
+                    $array[$i][7] = $res['religion'];
+                    $array[$i][8] = $res['last_school'];
+                    $array[$i][9] = $res['school_add'];
+                    $array[$i][10] = $res['curr_grdlevel'];
+                    $array[$i][11] = $res['fam_add'];
+                    $array[$i][12] = $res['phone'];
+                    $array[$i][13] = $res['studID'];
+                    $i++;
+                }       
+                return $array; 
+
+            } catch (Exception $e){
+                echo $e->getMessage();
+            }
+        }
+        public function getClassSubjects($year, $levelId) {
+            try{
+                $this->openConnection();
+
+                $stmt = $this->dbh->prepare("SELECT tbl_subjects.description As subject
+                                            FROM `tbl_gradesubjects`, tbl_subjects
+                                            WHERE gradelevel = '".$levelId."' AND tbl_gradesubjects.subID = tbl_subjects.subID");
+                $stmt->execute();
+                $array[]=0;
+                $i=0;
+                while($res=$stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $array[$i] = $res['subject'];
+                    $i++;
+                }       
+                return $array; 
+
+            } catch (Exception $e){
+                echo $e->getMessage();
+            }
+        }
+
 
     }
 

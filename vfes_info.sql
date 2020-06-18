@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2020 at 10:27 AM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.3.10
+-- Generation Time: Jun 14, 2020 at 06:19 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -34,6 +33,17 @@ CREATE TABLE `tbl_class` (
   `studID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tbl_class`
+--
+
+INSERT INTO `tbl_class` (`gradelevel`, `SY`, `studID`) VALUES
+(3, 2020, 1),
+(4, 2020, 2),
+(4, 2020, 2),
+(4, 2020, 3),
+(4, 2020, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +54,21 @@ CREATE TABLE `tbl_curriculum` (
   `gradelevel` int(11) NOT NULL,
   `gradename` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_curriculum`
+--
+
+INSERT INTO `tbl_curriculum` (`gradelevel`, `gradename`) VALUES
+(1, 'Daycare'),
+(2, 'Kinder 1'),
+(3, 'Kinder 2'),
+(4, 'Grade 1'),
+(5, 'Grade 2'),
+(6, 'Grade 3'),
+(7, 'Grade 4'),
+(8, 'Grade 5'),
+(9, 'Grade 6');
 
 -- --------------------------------------------------------
 
@@ -86,7 +111,12 @@ CREATE TABLE `tbl_gradefees` (
 
 CREATE TABLE `tbl_gradesubjects` (
   `gradelevel` int(11) NOT NULL,
-  `subID` int(11) NOT NULL
+  `subID` int(11) NOT NULL,
+  `firstGrading` varchar(4) DEFAULT NULL,
+  `secondGrading` varchar(4) DEFAULT NULL,
+  `thirdGrading` varchar(4) DEFAULT NULL,
+  `fourthGrading` varchar(4) DEFAULT NULL,
+  `remarks` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -139,7 +169,10 @@ CREATE TABLE `tbl_personproof` (
 --
 
 INSERT INTO `tbl_personproof` (`perID`, `l_name`, `f_name`, `m_name`, `sdob`, `ssex`, `sphone`, `scivilstatus`, `shome_add`, `eligibility`) VALUES
-(1, 'admin', 'admin', 'admin', '1997-03-17', 'f', '09563497543', 'Married', 'Baybay City Leyte', 'LET');
+(1, 'admin', 'admin', 'admin', '1997-03-17', 'f', '09563497543', 'Married', 'Baybay City Leyte', 'LET'),
+(2, 'Barcos', 'Thalia', 'b', '2020-06-09', 'f', '0987654322', 'Single', 'Baybay', 'Accountant'),
+(3, 'Tabada', 'Winston', 'b', '2020-06-09', 'm', '0987654322', 'Married', 'Visca', 'Dept. Head'),
+(4, 'Lavina', 'Charity Mae', 'S', '2020-06-09', 'f', '0987654322', 'Single', 'Baybay', 'Instructor');
 
 -- --------------------------------------------------------
 
@@ -247,7 +280,6 @@ CREATE TABLE `tbl_students` (
   `last_name` varchar(25) NOT NULL,
   `first_name` varchar(25) NOT NULL,
   `middle_name` varchar(25) NOT NULL,
-  `age` varchar(20) NOT NULL,
   `gender` enum('f','m') NOT NULL,
   `dob` date NOT NULL,
   `pob` varchar(50) NOT NULL,
@@ -263,8 +295,11 @@ CREATE TABLE `tbl_students` (
 -- Dumping data for table `tbl_students`
 --
 
-INSERT INTO `tbl_students` (`studID`, `last_name`, `first_name`, `middle_name`, `age`, `gender`, `dob`, `pob`, `religion`, `last_school`, `school_add`, `curr_grdlevel`, `fam_add`, `phone`) VALUES
-(1, 'Barcos', 'Angel', 'Goder', '', 'f', '2014-03-17', 'Brgy. Altavista Baybay City Leyte', 'Roman Catholic', 'Altavista Elementary School', 'Brgy. Altavista Baybay City Leyte', 'K2', 'Santa Felomina Baybay City Leyte', '093582687483');
+INSERT INTO `tbl_students` (`studID`, `last_name`, `first_name`, `middle_name`, `gender`, `dob`, `pob`, `religion`, `last_school`, `school_add`, `curr_grdlevel`, `fam_add`, `phone`) VALUES
+(1, 'Barcos', 'Angel', 'Goder', 'f', '2014-03-17', 'Brgy. Altavista Baybay City Leyte', 'Roman Catholic', 'Altavista Elementary School', 'Brgy. Altavista Baybay City Leyte', 'K2', 'Santa Felomina Baybay City Leyte', '093582687483'),
+(2, 'Taotao', 'Dhebie', 'Lombog', 'f', '2020-06-06', 'Baybay', 'Catholic', 'Visca', 'Visca, Baybay', '1', 'Baybay', '3456789'),
+(3, 'aaaaaaa', 'aaaaaaa', 'aaaaaaa', 'f', '2020-06-06', 'Baybay', 'Catholic', 'Visca', 'Visca, Baybay', '1', 'Baybay', '3456789'),
+(4, 'bbbbb', 'bbbbb', 'bbbbb', 'f', '2020-06-06', 'Baybay', 'Catholic', 'Visca', 'Visca, Baybay', '1', 'Baybay', '3456789');
 
 -- --------------------------------------------------------
 
@@ -277,6 +312,21 @@ CREATE TABLE `tbl_subjects` (
   `description` varchar(150) NOT NULL,
   `hrsperwk` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_subjects`
+--
+
+INSERT INTO `tbl_subjects` (`subID`, `description`, `hrsperwk`) VALUES
+(1, 'Filipino 1', '1'),
+(2, 'English 1', '1'),
+(3, 'Math 1', '1'),
+(4, 'Economics 1', '1'),
+(5, 'Science 1', '1'),
+(6, 'EPP 1', '1'),
+(7, 'Values 1', '1'),
+(8, 'MAPEH 1', '1'),
+(9, 'Economics 2', '1');
 
 -- --------------------------------------------------------
 
@@ -309,7 +359,10 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`user_ID`, `perID`, `username`, `password`, `usercode`) VALUES
-(1, 1, 'admin', 'admin', 'admin');
+(1, 1, 'admin', 'admin', 'admin'),
+(2, 2, 'account', 'account', 'accounting'),
+(3, 3, 'principal', 'principal', 'principal'),
+(4, 4, 'teacher', 'teacher', 'teacher');
 
 --
 -- Indexes for dumped tables
@@ -319,9 +372,9 @@ INSERT INTO `tbl_users` (`user_ID`, `perID`, `username`, `password`, `usercode`)
 -- Indexes for table `tbl_class`
 --
 ALTER TABLE `tbl_class`
-  ADD PRIMARY KEY (`SY`),
-  ADD UNIQUE KEY `gradelevel` (`gradelevel`),
-  ADD UNIQUE KEY `studID` (`studID`);
+  ADD KEY `SY` (`SY`) USING BTREE,
+  ADD KEY `FK_tbl_class_tbl_curriculum` (`gradelevel`),
+  ADD KEY `FK_tbl_class_tbl_students` (`studID`);
 
 --
 -- Indexes for table `tbl_curriculum`
@@ -418,9 +471,9 @@ ALTER TABLE `tbl_subjects`
 -- Indexes for table `tbl_sysectionadvi`
 --
 ALTER TABLE `tbl_sysectionadvi`
-  ADD PRIMARY KEY (`secAdviserID`),
   ADD UNIQUE KEY `gradelevel` (`gradelevel`),
-  ADD UNIQUE KEY `SY` (`SY`);
+  ADD UNIQUE KEY `SY` (`SY`),
+  ADD KEY `FK_tbl_sysectionadvi_tbl_personproof` (`secAdviserID`);
 
 --
 -- Indexes for table `tbl_users`
@@ -437,8 +490,8 @@ ALTER TABLE `tbl_users`
 -- Constraints for table `tbl_class`
 --
 ALTER TABLE `tbl_class`
-  ADD CONSTRAINT `tbl_class_ibfk_1` FOREIGN KEY (`gradelevel`) REFERENCES `tbl_curriculum` (`gradelevel`),
-  ADD CONSTRAINT `tbl_class_ibfk_2` FOREIGN KEY (`studID`) REFERENCES `tbl_students` (`studID`);
+  ADD CONSTRAINT `FK_tbl_class_tbl_curriculum` FOREIGN KEY (`gradelevel`) REFERENCES `tbl_curriculum` (`gradelevel`),
+  ADD CONSTRAINT `FK_tbl_class_tbl_students` FOREIGN KEY (`studID`) REFERENCES `tbl_students` (`studID`);
 
 --
 -- Constraints for table `tbl_educbg`
@@ -500,6 +553,7 @@ ALTER TABLE `tbl_siblings`
 -- Constraints for table `tbl_sysectionadvi`
 --
 ALTER TABLE `tbl_sysectionadvi`
+  ADD CONSTRAINT `FK_tbl_sysectionadvi_tbl_personproof` FOREIGN KEY (`secAdviserID`) REFERENCES `tbl_personproof` (`perID`),
   ADD CONSTRAINT `tbl_sysectionadvi_ibfk_1` FOREIGN KEY (`gradelevel`) REFERENCES `tbl_curriculum` (`gradelevel`),
   ADD CONSTRAINT `tbl_sysectionadvi_ibfk_2` FOREIGN KEY (`SY`) REFERENCES `tbl_class` (`SY`);
 

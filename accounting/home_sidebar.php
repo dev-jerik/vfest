@@ -81,9 +81,9 @@
           <li>
             <?php
               if($_SESSION['page'] == "school"){
-                echo '<a class="active" href="#"><i id="sidebarIcon"></i>School Fees</a>';
+                echo '<a class="active" href="schoolfees.php"><i id="sidebarIcon"></i>School Fees</a>';
               } else {
-                echo '<a href="#"><i id="sidebarIcon"></i>School Fees</a>';
+                echo '<a href="schoolfees.php"><i id="sidebarIcon"></i>School Fees</a>';
               }
             ?>
           </li>

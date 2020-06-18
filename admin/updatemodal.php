@@ -55,7 +55,7 @@
                             <table border='0' width='100%'>
                                 <tr>
                                     <th height='50px'>Date Started:</th>
-                                    <td><input type="text" class="form-control" name="date_started]" id="date_started" required></td>
+                                    <td><input type="text" class="form-control" name="date_started" id="date_started" required></td>
                                 </tr>
                                 <tr>
                                     <th height='50px'>Postion:</th>

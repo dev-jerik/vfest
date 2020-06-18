@@ -56,7 +56,7 @@ if(mysqli_num_rows($result) > 0)
     <td>'.$row["first_name"].'</td>
     <td>'.$row["middle_name"].'</td>
     <td style="text-align:center">
-      <a id="viewfees" href="fees.php?stud_id='.$row["studID"].'" title="View"><span class="glyphicon glyphicon-eye-open"></span></a>
+      <a id="viewfees" href="viewstudfees.php?stud_id='.$row["studID"].'" title="View"><span class="glyphicon glyphicon-eye-open"></span></a>
     </td>
    </tr>
   ';

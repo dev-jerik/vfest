@@ -10,7 +10,7 @@
 	$levelId = $_GET['levelId'];
 	$level = $_GET['level'];
 
-	$info = $view->getClassSubjects($year, $levelId);
+	$info = $view->getClassStudents($year, $levelId);
 
 	if(!$login->log_test()){
 		header('Location: ../index.php');
@@ -40,7 +40,7 @@
 				<div class="col-sm-9">
 					<div class="main-body">
 						<div class="page-header clearfix">
-	                        <h2 class="pull-left">View Subjects</h2>
+	                        <h2 class="pull-left">View Students</h2>
                    		</div>
 	                    <div>
 	                    	<div class="container-fluid">
@@ -53,28 +53,20 @@
 											<h5>Adviser: </h5>
 											<table class="table table bordered">
 												<tr>
-													<th class="table-header" width="20%"> # </th>
-													<th class="table-header">&nbsp;&nbsp;&nbsp;Subjects</th>
+													<th class="table-header" width="10%"> # </th>
+													<th class="table-header">&nbsp;&nbsp;&nbsp;Students</th>
 													<th style="text-align:center" class="table-header" width="25%">Action</th>
 												</tr>
 												<?php
 													for($i=0; $i<count($info); $i++){
 														$ctr = $i+1;
-														if ($info[$i] != '0') {
-															echo "
-																<tr>
-																	<td>".$ctr."</td>
-																	<td>".$info[$i]."</td>
-	      															<td style='text-align:center'><a data-toggle='modal' data-target='#editClassSubject' title='Edit'><span class='glyphicon glyphicon-edit'></span></a></td>
-	      														</tr>
-															";
-														} else {
-															echo "
-																<tr>
-																	<td style='text-align: center' colspan='3'> No Subjects Added </td>
-																</tr>
-															";
-														}
+														echo "
+															<tr>
+																<td>".$ctr."</td>
+																<td>".$info[$i][0].", ".$info[$i][1]." ".$info[$i][2]."</td>
+      															<td style='text-align:center'><a id='view' href='' >View Grades</a></td>
+															</tr>
+														";
 													}
 												?>
 											</table>
@@ -83,21 +75,8 @@
 				                            <a  class="btn btn-primary" href="class.php">Back</a>
 				                        </div>
 				                    </div>
-									<div class="col-sm-3">
-										<?php
-											if(count($info) < 8){
-												echo '
-													<div class="pull-right">
-							                            <button class="btn btn-success" data-toggle="modal" data-target="#addClassSubject">Add Subject</button>
-							                        </div>
-												';
-											}
-										?>
-									</div>
+									<div class="col-sm-3"></div>
 			                    </div>
-								<?php 
-									require "modal.php";
-						        ?>
 		                    </div>
 	                    </div>
 					</div>

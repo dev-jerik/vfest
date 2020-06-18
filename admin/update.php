@@ -5,9 +5,11 @@
   $cat = "StudID";
   $view = new UserDAO;
 
-  $info = $view->getStudInfo($_SESSION['id']);
-  $data = $view->getparentInfo($_SESSION['id']);
-  $for = $view->getsiblingsInfo($_SESSION['id']);
+  $studId = $_GET['stud_id'];
+
+  $info = $view->getStudInfo($studId);
+  $data = $view->getparentInfo($studId);
+  $for = $view->getsiblingsInfo($studId);
 
  
   $_SESSION['page'] = "home";
@@ -30,7 +32,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <form name="frmUser" method="post" action="studget_info.php?func=editStud">
+          <form name="frmUser" method="post" action="../controller/studget_info.php?func=editStud">
             <div class="modal-header">
               <header align="center">
                 <td><h3>VISCA FOUNDATION ELEMENTARY SCHOOL</h3></td>
@@ -82,7 +84,7 @@
                                 <td><input class="form-control"  size='30px' type='text' name='pob' value="<?php echo $info[6]; ?>"></td>
                   <th width='10px'></th>
                                 <td>
-                                    <select class="form-control"  name='religion' value="<?php echo $info[7]; ?>">
+                                    <select class="form-control"  name='religion' value="">
                                         <option>Catholic</option>
                                         <option>Protestant</option>
                                         <option>Islam</option>
@@ -132,7 +134,7 @@
                 </tr>
               </table>
             </form>
-            <form name="frmfamily" method="post" action="studget_info.php?func=editparent">
+            <form name="frmfamily" method="post" action="../contoller/studget_info.php?func=editparent">
               <hr>
               <h3>Family Background</h3>
               <h4>Parents/Guardian</h4>
@@ -145,7 +147,7 @@
                   <th style='text-align: center' colspan='2'>Action</th>
                 </tr>
                 <tr align='center'>
-                  <td style='text-align: center'><input type="role" name="role" value="<?php echo $data[11]; ?>" ></td>
+                  <td style='text-align: center'><input type="role" name="role" value="<?php echo $role; ?>" ></td>
                   <td style='text-align: center' width='50%'><input  name="plast_name" value="<?php echo $data[0]; ?>" ><input  name="pfirst_name" value="<?php echo $data[1]; ?>" ><input name="pmiddle_name" value="<?php echo $data[2]; ?>" ></td>
                   <td style='text-align: center' ><input  name="pfirst_name" value="<?php echo $data[4]; ?>" ></td>
                   <td style='text-align: center'><input name="middle_name" value="<?php echo $data[5]; ?>" ></td>
@@ -154,9 +156,9 @@
                     </td>
                 </tr>
               </table>
-              <button align='right' data-toggle='modal' data-target='#addParent'>Add Parents/Guardian</button>
+              <button align='right' data-toggle='modal' class="btn btn-success" data-target='#addParent'>Add Parents/Guardian</button>
             </form>
-             <form name="sibs" method="post" action="studget_info.php?func=editSibs">
+             <form name="sibs" method="post" action="../controller/studget_info.php?func=editSibs">
               <br><br>
               <h4>Siblings</h4>
               <table border='1px' width='100%'>

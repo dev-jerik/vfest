@@ -90,9 +90,9 @@
           <li>
             <?php
               if($_SESSION['page'] == "class"){
-                echo '<a class="active" href="#"><i id="sidebarIcon"></i>Class Files</a>';
+                echo '<a class="active" href="class.php"><i id="sidebarIcon"></i>Class Files</a>';
               } else {
-                echo '<a href="#"><i id="sidebarIcon"></i>Class Files</a>';
+                echo '<a href="class.php"><i id="sidebarIcon"></i>Class Files</a>';
               }
             ?>
           </li>

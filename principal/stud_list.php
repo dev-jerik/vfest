@@ -34,6 +34,10 @@
           <div class="main-body">
             <div class="page-header clearfix">
                           <h2 class="pull-left">Students</h2>
+                           <div class="pull-right">
+                              <!-- <button class="btn btn-success" data-toggle="modal" data-target="#add_new_record_modal">Add New Record</button> -->
+                              <a  class="btn btn-success" href="add_students.php">Add New Record</a>
+                          </div>
                       </div>
                       <div>
                           <form name='frmSearch' action='' method='post'>
