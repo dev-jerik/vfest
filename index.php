@@ -1,8 +1,8 @@
 <?php
 	session_start();
 	if(isset($_POST["login"])){
-		include_once 'Model/Config.php';
-    	include_once 'Model/UserModel.php';
+		include_once 'model/Config.php';
+    	include_once 'model/UserModel.php';
     	$user = new UserModel($DB_con);
 
     	$username = $_POST["username"];

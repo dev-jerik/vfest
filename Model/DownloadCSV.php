@@ -1,7 +1,7 @@
 <?php
-    include_once '../Model/Config.php';
-    include_once '../Model/UserModel.php';
-    include_once '../Model/StaffModel.php';
+    include_once '../model/Config.php';
+    include_once '../model/UserModel.php';
+    include_once '../model/StaffModel.php';
     $user = new UserModel($DB_con);
     //validate if user has sign in.
     if(!$user->isLoggedIn() || !isset($_GET['fileName'])||!isset($_GET['offerID'])){

@@ -1,5 +1,5 @@
 <?php
-    include "../Model/Helper.php";
+    include "../model/Helper.php";
     class CommonModel extends Helper{
         public function __construct($DB_CON){
             parent::__construct($DB_CON);

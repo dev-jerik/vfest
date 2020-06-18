@@ -1,6 +1,6 @@
 <?php
-    include_once '../../Model/Config.php';
-    include_once '../../Model/UserModel.php';
+    include_once '../../model/Config.php';
+    include_once '../../model/UserModel.php';
     $user = new UserModel($DB_con);
     if(isset($_GET['logout'])){
         if($user->doLogout()){
@@ -16,14 +16,14 @@
     <title>VSU-VFEST</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../../Assets/images/vsu_logo2.png">
-    <link rel="stylesheet" href="../../Assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../Assets/css/font-awesome.min.css">
+    <link rel="icon" href="../../assets/images/vsu_logo2.png">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="../../Assets/css/customCss.css">
-    <script src="../../Assets/js/jquery.min.js"></script>
-    <script src="../../Assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../assets/css/customCss.css">
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
     <style type="text/css">
         .sidenav {
           height: 100%;

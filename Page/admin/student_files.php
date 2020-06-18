@@ -1,9 +1,9 @@
 <?php
 	session_start();
 	$_SESSION['active_page'] = "admin/student_files";
-    include "../Common/header.php";
-    include_once '../../Model/Config.php';
-    include_once '../../Model/StudentModel.php';
+    include "../common/header.php";
+    include_once '../../model/Config.php';
+    include_once '../../model/StudentModel.php';
     $stud = new StudentModel($DB_con);
     $studentList = $stud->getStudents();
 ?>
@@ -36,4 +36,4 @@
 
 </div>
 
-<?php include "../Common/footer.php";?>
+<?php include "../common/footer.php";?>
