@@ -10,7 +10,7 @@
 
 <div class="main">
     <h2 class="text-success">Students</h2>
-    <table class="table">
+    <table class="table table-sm table-striped table-hover">
         <thead>
             <tr>
                 <th>Student ID</th>

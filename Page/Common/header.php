@@ -18,13 +18,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../../assets/images/vsu_logo2.png">
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap4.5.min.css">
     <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="../../assets/css/customCss.css">
     <script src="../../assets/js/jquery.min.js"></script>
-    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/bootstrap4.5.min.js"></script>
     <style type="text/css">
     .sidenav {
         height: 100%;
@@ -52,7 +52,7 @@
     .main {
         margin-left: 200px;
         /* Same as the width of the sidenav */
-        font-size: 28px;
+        /* font-size: 28px; */
         /* Increased text to enable scrolling */
         padding: 0px 10px;
         top: 0;
