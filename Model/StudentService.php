@@ -25,10 +25,13 @@
 							<td>{$student['last_name']}</td>
 							<td>{$student['first_name']}</td>
 							<td>{$student['middle_name']}</td>
-							<td style='width: 80px;'>
-								<a id='editStudent' href={$url} title='Edit' style='text-decoration: none'>
-									<i class='fa fa-pencil-square-o text-warning' style='padding:4px;''></i>
-								</a>
+							<td class='text-center' style='width: 80px;'>
+								<form action='../admin/add_edit_student.php' method='POST'>
+									<input value='edit' name='action' hidden>
+									<input value={$student['studID']} name='studId' hidden>
+									<button type='submit' style='border:none; background:none'><i class='fa fa-pencil-square-o text-warning'
+											style='padding:4px;'></i></button>
+								</form>
 							</td>
 						</tr>";	
 			}

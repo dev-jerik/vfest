@@ -20,9 +20,9 @@
                 }else if($type === "fetchAll"){
                     return $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
-                return 0;
+                return 1;
             }catch(PDOException $ex){
-                //echo $ex;
+                echo $ex;
                 return 0;
             }
         }
