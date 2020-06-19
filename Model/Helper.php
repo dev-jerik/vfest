@@ -20,6 +20,7 @@
                 }else if($type === "fetchAll"){
                     return $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
+                return 0;
             }catch(PDOException $ex){
                 //echo $ex;
                 return 0;

@@ -5,7 +5,7 @@
 ?>
 
 <div class="main">
-       <h2 class="text-success">Home</h2>
+    <h2 class="text-success">Home</h2>
 </div>
 
 <?php include "../common/footer.php";?>
