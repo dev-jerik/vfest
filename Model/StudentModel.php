@@ -5,18 +5,16 @@
             parent::__construct($DB_CON);
         }
 
-        public function getStudentEnroll($studID, $offerID, $season){
-        	$sql = "Select enroll.studLevelID, stud.StudID, stud.FirstName, stud.MiddleName, stud.LastName FROM students as stud
-				INNER JOIN p".$season."enroll enroll ON stud.StudID=enroll.StudID
-                INNER JOIN p".$season."class class ON class.studLevelID=enroll.studLevelID
-				WHERE stud.StudID=? and class.offerID=?";
-                    
-            $arrayParam = array(0=>$studID, 1=>$offerID);
-            return $this->executeQuery($sql, $arrayParam);
+        public function findStudent($studId) {
+            $sql = "SELECT * FROM tbl_students
+                    WHERE tbl_students.studID = {$studId};";
+            return $this->executeQuery($sql);
         }
 
-        public function getStudents(){
-            $sql = "SELECT * FROM tbl_students ORDER BY studID DESC";                    
+        public function searchStudent($search=""){
+            $sql = "SELECT * FROM tbl_students 
+                    WHERE last_name LIKE '%".$search."%'
+ 	                OR first_name LIKE '%".$search."%' ORDER BY studID DESC";                    
             return $this->executeQuery($sql, null, "fetchAll");
         }
     }

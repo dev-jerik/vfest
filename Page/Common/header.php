@@ -28,7 +28,7 @@
     <style type="text/css">
     .sidenav {
         height: 100%;
-        width: 200px;
+        width: 220px;
         position: fixed;
         z-index: 1;
         top: 0;
@@ -50,11 +50,11 @@
     }
 
     .main {
-        margin-left: 200px;
+        margin-left: 220px;
         /* Same as the width of the sidenav */
         /* font-size: 28px; */
         /* Increased text to enable scrolling */
-        padding: 0px 10px;
+        padding: 8px 20px 0px 20px;
         top: 0;
     }
 
