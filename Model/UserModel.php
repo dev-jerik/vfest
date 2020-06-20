@@ -42,6 +42,27 @@
             return false;
         }
 
+        public function checkUrl() {
+            $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+            
+            $isAdmin = strtoupper($_SESSION['user_code']) =="ADMIN" && strpos($url,'admin') !== false;
+            $isTeacher = strtoupper($_SESSION['user_code']) =="TEACHER" && strpos($url,'teacher') !== false;
+            
+            if ($isAdmin) {
+               return;
+            }
+
+            if ($isTeacher) {
+                return;
+            }
+
+            if(strtoupper($_SESSION['user_code']) == "ADMIN") {
+                header('Location: ../../index.php');
+            } else if (strtoupper($_SESSION['user_code']) == "TEACHER") {
+                header('Location: ../../index.php');
+            }
+        }
+
         public function isDeptHead($instID){
             $sql = "SELECT * from department WHERE UnitHead=?";
             $stmt = $this->db->prepare($sql);

@@ -1,7 +1,21 @@
 <?php
     include_once '../../model/Config.php';
     include_once '../../model/UserModel.php';
+
     $user = new UserModel($DB_con);
+
+    if (!$user->isLoggedIn()) {
+        header('Location: ../../index.php');
+    }  
+    /**
+     * Url validation based on the user_code and the access url.
+     * Teacher user cannot access the admin resources.
+     * Admin user cannot access the teacher resources.
+     * 
+     * Attempting to do so, the system will redirect to the home page of the login user based on the user_code.
+     */
+    $user->checkUrl();
+    
     if(isset($_GET['logout'])){
         if($user->doLogout()){
             header("Location: ../../index.php");  
@@ -113,7 +127,7 @@
             <!-- END of Admin Menu -->
 
             <?php if($_SESSION['user_code'] == "teacher"): ?>
-            <a href="#teacherHOME" class=<?php echo ($_SESSION['active_page'] == "teacher/home")? "active":"";?>>
+            <a href="index.php" class=<?php echo ($_SESSION['active_page'] == "teacher/home")? "active":"";?>>
                 Home </a>
             <a href="#classfiles"
                 class=<?php echo ($_SESSION['active_page'] == "teacher/class_files")? "active":"";?>>Class

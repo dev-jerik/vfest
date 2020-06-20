@@ -1,18 +1,30 @@
 <?php
 	session_start();
-	if(isset($_POST["login"])){
-		include_once 'model/Config.php';
-    	include_once 'model/UserModel.php';
-    	$user = new UserModel($DB_con);
 
+	include_once 'model/Config.php';
+	include_once 'model/UserModel.php';
+	$user = new UserModel($DB_con);
+
+	if ($user->isLoggedIn()) {
+        if(strtoupper($_SESSION['user_code']) == "ADMIN") {
+			header('Location: page/admin/index.php');
+		} else if (strtoupper($_SESSION['user_code']) == "TEACHER") {
+			header('Location: page/teacher/index.php');
+		}
+    }  
+
+	if(isset($_POST["login"])){
     	$username = $_POST["username"];
     	$password = $_POST["password"];
     	if ($user->doLogin($username, $password)) {
-    		header('Location: page/admin/index.php');
-    	} else {
-    		die("Bad Credentials.");
-    	}
-    } 
+			if(strtoupper($_SESSION['user_code']) == "ADMIN") {
+				header('Location: page/admin/index.php');
+			} else if (strtoupper($_SESSION['user_code']) == "TEACHER") {
+				header('Location: page/teacher/index.php');
+			}
+    	} 
+	} 
+	
 ?>
 <!DOCTYPE HTML>
 <html>
