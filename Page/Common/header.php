@@ -45,6 +45,21 @@
         display: block;
     }
 
+    .sidenav button.logout {
+        padding: 8px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 16px;
+        color: #818181;
+        display: block;
+        border:none;
+        outline: none;
+        width: 100%;
+    }
+
+    .sidenav button.logout:hover {
+        background-color: #ffff;
+    }
+
     .sidenav a:hover {
         background-color: #ffff;
     }
@@ -109,7 +124,7 @@
 
 
             <form>
-                <button type=submit name="logout">Logout</button>
+                <button type=submit name="logout" class="logout text-left">Logout</button>
             </form>
         </div>
     </div>
