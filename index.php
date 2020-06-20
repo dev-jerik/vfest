@@ -20,22 +20,22 @@
 		<title>Login Page</title>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <link rel="icon" href="Assets/images/vsu_logo2.png">
-	    <link rel="stylesheet" href="Assets/css/bootstrap.min.css">
-	    <link rel="stylesheet" href="Assets/css/font-awesome.min.css">
-	    <link rel="stylesheet" href="Assets/css/customCss.css">
-	    <script src="Assets/js/jquery.min.js"></script>
-	    <script src="Assets/js/bootstrap.min.js"></script>
+	    <link rel="icon" href="assets/images/vsu_logo2.png">
+	    <link rel="stylesheet" href="assets/css/bootstrap4.5.min.css">
+	    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	    <link rel="stylesheet" href="assets/css/customCss.css">
+	    <script src="assets/js/jquery.min.js"></script>
+	    <script src="assets/js/bootstrap4.5.min.js"></script>
 	</head>
 	<body style="background-color:grey;">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
+			<div class="col-md-4 mx-auto">
 				<div style="margin-top: 100px; background: #ffffff; border-radius: 4px;">		
 					<form method="POST">
-						<div class="login-header bg-success" style="border-top-left-radius: 4px; border-top-right-radius: 4px;
+						<div class="login-header bg-success text-white" style="border-top-left-radius: 4px; border-top-right-radius: 4px;
 						padding: 4px 4px 4px 8px">
-							<h4>Login Form</h4>
+							<h5>Login Form</54>
 						</div>
 
 						<div class="loginForm" style="padding: 10px;">
