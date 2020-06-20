@@ -12,11 +12,11 @@
         }
 
         public function getStudentInfo($studId) {
-            $sql = " SELECT stud.*, concat(prof.l_name,', ', prof.f_name) AS teacher FROM tbl_sysectionadvi adviser
-            INNER JOIN tbl_personproof prof ON prof.perID=adviser.secAdviserID
-            INNER JOIN tbl_class class ON (class.gradelevel=adviser.gradelevel AND class.SY=adviser.SY)
-            INNER JOIN tbl_students stud ON stud.studID=class.studID
-            WHERE stud.studID = {$studId}";
+            $sql = "SELECT stud.*, concat(prof.l_name,', ', prof.f_name) AS teacher FROM tbl_students stud
+                    LEFT JOIN tbl_class class ON (class.studID=stud.studID)
+                    LEFT JOIN tbl_sysectionadvi adviser ON (adviser.gradelevel=class.gradelevel AND adviser.SY=class.SY)
+                    LEFT JOIN tbl_personproof prof ON prof.perID=adviser.secAdviserID
+                    WHERE stud.studID = {$studId}";
             return $this->executeQuery($sql);
         }
 
@@ -39,4 +39,17 @@
                
                 $this->executeQuery($sql, $arrayParam, null);    
         }
+
+        public function saveStudent($studId, $lastName, $firstName, $middleName, $gender, $dob, $pob, $religion,
+            $currGradeLevel, $famAddress, $phone) {
+            $sql ="INSERT INTO tbl_students VALUES(:studId, :lastName, :firstName, :middleName,
+            :gender, :dob, :pob, :religion, 'lastSchool', 'school add', :currGradeLevel, :famAddress,
+            :phone)";
+            
+            $arrayParam = array("studId"=>$studId, "lastName"=>$lastName, "firstName"=>$firstName,
+            "middleName"=>$middleName, "gender"=>$gender, "dob"=>$dob, "pob"=>$pob, "religion"=>$religion,
+            "currGradeLevel"=>$currGradeLevel, "famAddress"=>$famAddress, "phone"=>$phone);
+           
+            $this->executeQuery($sql, $arrayParam, null);    
+    }
     }

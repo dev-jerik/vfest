@@ -6,12 +6,25 @@
     include_once '../../model/StudentModel.php';
     $studModel = new StudentModel($DB_con);
 
+    $error = array();
+    $success = "";
+ 
     if(isset($_POST['save'])) {
-        // Save data to database
+        validateFields();
+        if (count($GLOBALS['error']) == 0) {
+            $studModel->saveStudent($_POST['studId'], $_POST['lastName'], $_POST['firstName'], $_POST['middleName'],
+            $_POST['gender'], $_POST['birthDate'], $_POST['birthPlace'], $_POST['religion'], $_POST['currGradeLevel'], 
+            $_POST['address'], $_POST['phoneNumber']);
+            $GLOBALS['success'] = "Student Profile was saved successfully.";
+        }
     } else if(isset($_POST['edit'])) {
-        $studModel->updateStudent($_POST['studId'], $_POST['lastName'], $_POST['firstName'], $_POST['middleName'],
-        $_POST['gender'], $_POST['birthdate'], $_POST['birthPlace'], $_POST['religion'], $_POST['currGradeLevel'], 
-        $_POST['address'], $_POST['phoneNumber']);
+        validateFields();
+        if (count($GLOBALS['error']) == 0) {
+            $studModel->updateStudent($_POST['studId'], $_POST['lastName'], $_POST['firstName'], $_POST['middleName'],
+            $_POST['gender'], $_POST['birthDate'], $_POST['birthPlace'], $_POST['religion'], $_POST['currGradeLevel'], 
+            $_POST['address'], $_POST['phoneNumber']);
+            $GLOBALS['success'] = "Student Profile was updated successfully.";
+        }
     } 
 
     if (isset($_POST['action'])) { // Fix refresh browser
@@ -40,6 +53,30 @@
         $studentInfo = $studModel->getStudentInfo($studId);
     } 
     
+
+    function validateFields() {
+        if ($_POST['studId'] == "") {
+            array_push($GLOBALS['error'], "Student ID is required.");
+        }
+        if ($_POST['lastName'] == "") {
+            array_push($GLOBALS['error'], "Last Name is required.");
+        }
+        if ($_POST['firstName'] == "") {
+            array_push($GLOBALS['error'], "First Name is required.");
+        }
+        if ($_POST['birthDate'] == "") {
+            array_push($GLOBALS['error'], "Birth Date is required.");
+        }
+        if ($_POST['birthPlace'] == "") {
+            array_push($GLOBALS['error'], "Birth Place is required.");
+        }
+        if ($_POST['religion'] == "0") {
+            array_push($GLOBALS['error'], "Religion is required.");
+        }
+        if ($_POST['currGradeLevel'] == "0") {
+            array_push($GLOBALS['error'], "Current Grade Level is required.");
+        }
+    }
 ?>
 
 <style>
@@ -51,6 +88,7 @@
     display: table;
     width: 100%;
     height: 50px;
+    margin-bottom: 8px;
 }
 
 .tab-cell {
@@ -85,11 +123,9 @@
     /* border: 1px solid #ccc; */
     border-top: none;
 }
-
 </style>
 
 <div class="main">
-    <!-- <?php echo $studentInfo['curr_grdlevel']; ?> -->
     <div class="header clearfix" style="border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: 8px;">
         <div style="float:left">
             <h4 class="text-success"><?php echo $header; ?></h4>
@@ -98,7 +134,7 @@
 
     <div class="tab bg-light">
         <div class="tab-cell">
-            <button class="tablinks active" id="tabLink1" >Student Profile</button>
+            <button class="tablinks active" id="tabLink1">Student Profile</button>
         </div>
         <div class="tab-cell">
             <button class="tablinks" id="tabLink2">Family Background</button>
@@ -107,14 +143,24 @@
             <button class="tablinks" id="tabLink3">Last School Attended</button>
         </div>
     </div>
-
+    <?php foreach($error as $err):?>
+        <div class="alert alert-danger" role="alert" style="padding: 4px; margin-bottom: 2px;">
+            <?= $err ?>
+        </div>
+    <?php endforeach; ?>
+    <?php if ($success != ""):?>
+        <div class="alert alert-success" role="alert" style="padding: 4px; margin-bottom: 2px;">
+            <?= $success ?>
+        </div>
+    <?php endif; ?>
+    
     <div class="container" style="padding: 8px 80px;">
-        <form method="POST">
+        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
             <div id="tab1" class="tabcontent" style="display:block;">
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="studId">Student ID</label>
-                        <input type="text" readonly class="form-control form-control-sm" name="studId"
+                        <input type="text" <?php echo ($action=="add")?"":"readonly"; ?> class="form-control form-control-sm" name="studId"
                             value='<?= $studentInfo['studID'] ?>'>
                     </div>
                     <div class="form-group col-md-4">
@@ -135,12 +181,8 @@
                     <div class="form-group col-md-4">
                         <label for="birthDate">Birthdate</label>
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" name="birthdate" aria-describedby="basic-addon2"
+                            <input type="date" class="form-control form-control-plaindate" name="birthDate"
                                 value='<?= $studentInfo['dob'] ?>'>
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon2"><i class="fa fa-calendar"
-                                        aria-hidden="true"></i></span>
-                            </div>
                         </div>
                     </div>
                     <div class="form-group col-md-4">
@@ -173,7 +215,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="currGradeLevel">Current Grade Level</label>
-                        <select class="custom-select custom-select-sm" name="currGradeLevel" required>
+                        <select class="custom-select custom-select-sm" id="currGradeLevel" name="currGradeLevel" required>
                             <option value="0">Please select curriculum</option>';
                             <?php  
                         include_once '../../model/CurriculumModel.php';
@@ -206,14 +248,14 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="teacher">Teacher</label>
-                        <input type="text" readonly class="form-control form-control-sm" name="teacher"
+                        <input type="text" readonly class="form-control form-control-sm" id="teacher" name="teacher"
                             value='<?= $studentInfo['teacher']?>'>
                     </div>
                 </div>
 
                 <hr>
                 <div class="pull-right">
-                    <button type="button" class="btn btn-sm btn-success" style="width: 150px;" 
+                    <button type="button" class="btn btn-sm btn-success" style="width: 150px;"
                         onclick="selectedTab(event, 'tab2', 'tabLink2')">
                         Next
                     </button>
@@ -223,33 +265,33 @@
                 <h4>Family Background</h4>
                 <hr>
                 <div class="pull-right">
-                    <button type="button" class="btn btn-sm btn-success" style="width: 150px;" 
-                            onclick="selectedTab(event, 'tab1', 'tabLink1')">
-                            Back
+                    <button type="button" class="btn btn-sm btn-light" style="width: 150px;"
+                        onclick="selectedTab(event, 'tab1', 'tabLink1')">
+                        Back
                     </button>
-                    <button type="button" class="btn btn-sm btn-success" style="width: 150px;" 
+                    <button type="button" class="btn btn-sm btn-success" style="width: 150px;"
                         onclick="selectedTab(event, 'tab3', 'tabLink3')">
                         Next
                     </button>
                 </div>
             </div>
             <div id="tab3" class="tabcontent">
-            <h4>Last School</h4>
-            <hr>
-            <?php if($_SESSION['action']=="add"): ?>
+                <h4>Last School</h4>
+                <hr>
+                <?php if($_SESSION['action']=="add"): ?>
                 <div class="pull-right">
-                    <button type="button" class="btn btn-sm btn-success" style="width: 150px;" 
-                            onclick="selectedTab(event, 'tab2', 'tabLink2')">
-                            Back
+                    <button type="button" class="btn btn-sm btn-light" style="width: 150px;"
+                        onclick="selectedTab(event, 'tab2', 'tabLink2')">
+                        Back
                     </button>
                     <button type="submit" class="btn btn-sm btn-success" style="width: 150px;" name="save">Save</button>
                 </div>
                 <?php endif; ?>
                 <?php if($_SESSION['action']=="edit"): ?>
                 <div class="pull-right">
-                    <button type="button" class="btn btn-sm btn-success" style="width: 150px;" 
-                            onclick="selectedTab(event, 'tab2', 'tabLink2')">
-                            Back
+                    <button type="button" class="btn btn-sm btn-light" style="width: 150px;"
+                        onclick="selectedTab(event, 'tab2', 'tabLink2')">
+                        Back
                     </button>
                     <button type="submit" class="btn btn-sm btn-success" style="width: 150px;"
                         name="edit">Update</button>
@@ -262,7 +304,6 @@
 
 <!--Script Here-->
 <script>
-
 $(document).ready(function() {
     $('.gender').click(function() {
         $(this).find('.btn').toggleClass('active');
@@ -277,6 +318,17 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on("change", "#currGradeLevel", function() {
+        var searchValue = $(this).val();
+        $.post("../../model/TeacherService.php", {
+                search: searchValue,
+                action: "findTeacher"
+            },
+            function(data) {
+                $("#teacher").val(data);
+            }
+        );
+    });
 });
 
 function selectedTab(evt, tab, tabLink) {
@@ -289,12 +341,12 @@ function selectedTab(evt, tab, tabLink) {
     // for (i = 0; i < tablinks.length; i++) {
     //     tablinks[i].className = tablinks[i].className.replace("active", "");
     // }
-    $('#'+tab).css('display', 'block');
+    $('#' + tab).css('display', 'block');
     tabLinks = $(".tab").find(".tablinks");
     for (i = 0; i < tabLinks.length; i++) {
         tabLinks[i].className = tabLinks[i].className.replace("active", "");
     }
-    $('#'+tabLink).toggleClass('active');
+    $('#' + tabLink).toggleClass('active');
 };
 </script>
 <?php include "../common/footer.php"; ?>
