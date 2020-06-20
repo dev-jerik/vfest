@@ -63,11 +63,12 @@
         border-bottom: 1px dotted gray;
     }
 
-    a.active-page {
-        background: #555;
+    .sidenav a.active {
+        background-color: #555;
+        color: white;
     }
 
-    .sidenav a:hover:not(.active-page) {
+    .sidenav a:hover:not(a.active) {
         background-color: #ffff;
     }
     </style>
@@ -86,10 +87,10 @@
 
             <!-- Admin Menu -->
             <?php if($_SESSION['user_code'] == "admin"): ?>
-            <a href="index.php" class=<?php echo ($_SESSION['active_page'] == "admin/home")? "active-page":"";?>> Home
+            <a href="index.php" class=<?php echo ($_SESSION['active_page'] == "admin/home")? "active":"";?>> Home
             </a>
             <a href="student_files.php"
-                class=<?php echo ($_SESSION['active_page'] == "admin/student_files")? "active-page":"";?>>Student
+                class=<?php echo ($_SESSION['active_page'] == "admin/student_files")? "active":"";?>>Student
                 Files</a>
             <a href="#schoolstafffiles">School Staff Files</a>
             <a href="#classfiles">Class Files</a>
@@ -97,10 +98,10 @@
             <!-- END of Admin Menu -->
 
             <?php if($_SESSION['user_code'] == "teacher"): ?>
-            <a href="#teacherHOME" class=<?php echo ($_SESSION['active_page'] == "teacher/home")? "active-page":"";?>>
+            <a href="#teacherHOME" class=<?php echo ($_SESSION['active_page'] == "teacher/home")? "active":"";?>>
                 Home </a>
             <a href="#classfiles"
-                class=<?php echo ($_SESSION['active_page'] == "teacher/class_files")? "active-page":"";?>>Class
+                class=<?php echo ($_SESSION['active_page'] == "teacher/class_files")? "active":"";?>>Class
                 Files</a>
             <a href="#leaverequest">Leave Request</a>
             <a href="#myprofile">My Profile</a>
