@@ -1,0 +1,61 @@
+.sidenav {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+}
+
+.sidenav a {
+    padding: 8px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav button.logout {
+    padding: 8px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+    border:none;
+    outline: none;
+    width: 100%;
+}
+
+.sidenav button.logout:hover {
+    background-color: #ffff;
+}
+
+.sidenav a:hover {
+    background-color: #ffff;
+}
+
+.main {
+    margin-left: 220px;
+    /* Same as the width of the sidenav */
+    /* font-size: 28px; */
+    /* Increased text to enable scrolling */
+    padding: 8px 20px 0px 20px;
+    top: 0;
+}
+
+.sidebar-profile {
+    padding: 12px;
+    border-bottom: 1px dotted gray;
+}
+
+.sidenav a.active {
+    background-color: #555;
+    color: white;
+}
+
+.sidenav a:hover:not(a.active) {
+    background-color: #ffff;
+}
+

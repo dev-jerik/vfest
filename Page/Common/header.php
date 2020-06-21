@@ -37,70 +37,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="../../assets/css/customCss.css">
+    <link rel="stylesheet" href="../../assets/css/pageCss.css">
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/js/bootstrap4.5.min.js"></script>
-    <style type="text/css">
-    .sidenav {
-        height: 100%;
-        width: 220px;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        background-color: #f1f1f1;
-        overflow-x: hidden;
-    }
-
-    .sidenav a {
-        padding: 8px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 16px;
-        color: #818181;
-        display: block;
-    }
-
-    .sidenav button.logout {
-        padding: 8px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 16px;
-        color: #818181;
-        display: block;
-        border:none;
-        outline: none;
-        width: 100%;
-    }
-
-    .sidenav button.logout:hover {
-        background-color: #ffff;
-    }
-
-    .sidenav a:hover {
-        background-color: #ffff;
-    }
-
-    .main {
-        margin-left: 220px;
-        /* Same as the width of the sidenav */
-        /* font-size: 28px; */
-        /* Increased text to enable scrolling */
-        padding: 8px 20px 0px 20px;
-        top: 0;
-    }
-
-    .sidebar-profile {
-        padding: 12px;
-        border-bottom: 1px dotted gray;
-    }
-
-    .sidenav a.active {
-        background-color: #555;
-        color: white;
-    }
-
-    .sidenav a:hover:not(a.active) {
-        background-color: #ffff;
-    }
-    </style>
 </head>
 
 <body>
@@ -121,7 +60,9 @@
             <a href="student_files.php"
                 class=<?php echo ($_SESSION['active_page'] == "admin/student_files")? "active":"";?>>Student
                 Files</a>
-            <a href="#schoolstafffiles">School Staff Files</a>
+            <a href="staff_files.php"
+                class=<?php echo ($_SESSION['active_page'] == "admin/staff_files")? "active":"";?>>School Staff 
+                Files</a>
             <a href="#classfiles">Class Files</a>
             <?php endif; ?>
             <!-- END of Admin Menu -->
@@ -135,7 +76,6 @@
             <a href="#leaverequest">Leave Request</a>
             <a href="#myprofile">My Profile</a>
             <?php endif; ?>
-
 
             <form>
                 <button type=submit name="logout" class="logout text-left">Logout</button>
