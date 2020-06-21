@@ -6,6 +6,8 @@
 
 	if ($action == "searchStudent") {
 		searchStudent($_POST['search']);
+	} else if ($action == "deleteStudent") {
+		deleteStudent($_POST['search']);
 	} else {
 		echo "Invalid parameter action: ".$action;
 	}
@@ -25,17 +27,25 @@
 							<td>{$student['last_name']}</td>
 							<td>{$student['first_name']}</td>
 							<td>{$student['middle_name']}</td>
-							<td class='text-center' style='width: 80px;'>
+							<td class='text-center' style='width: 100px;'>
 								<form action='../admin/add_edit_student.php' method='POST'>
 									<input value='edit' name='action' hidden>
 									<input value={$student['studID']} name='studId' hidden>
 									<button type='submit' style='border:none; background:none'><i class='fa fa-pencil-square-o text-warning'
 											style='padding:4px;'></i></button>
+			                        <a href='#myModal' class='trigger-btn delete' data-toggle='modal' style='border:none; background:none'>
+			                                <i class='fa fa-trash-o text-warning' style='padding:4px;''></i></a>
 								</form>
 							</td>
 						</tr>";	
 			}
 		}		
 		echo $output;
+	}
+
+	function deleteStudent($search) {
+		$studModel = new StudentModel($GLOBALS['DB_con']);
+		$studentList = $studModel->deleteStudent($search);
+		searchStudent("");
 	}
  ?>

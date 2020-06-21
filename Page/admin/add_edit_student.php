@@ -41,6 +41,10 @@
         "gender"=>"m", "dob"=>"", "pob"=>"", "religion"=>"", "last_school"=>"",
         "phone"=>"", "school_add"=>"", "curr_grdlevel"=>"", "fam_add"=>"", 
         "teacher"=>"");
+
+        $parentInfo = array("PID" => "", "role" => "", "plast_name"=>"", "pfirst_name"=>"", "pmiddle_name"=>"",
+        "psex"=>"m", "occupation"=>"", "VSUconnected"=>"No", "deptoffice"=>"", "officehead"=>"",
+        "officeAdd"=>"");
     } else if ($action == "edit") {
         $header="Edit Student";
         // Fix refresh browser
@@ -218,11 +222,11 @@
                         <select class="custom-select custom-select-sm" id="currGradeLevel" name="currGradeLevel" required>
                             <option value="0">Please select curriculum</option>';
                             <?php  
-                        include_once '../../model/CurriculumModel.php';
-                        $currCulumModel = new CurriculumModel($DB_con);
-                        $currCulumList = $currCulumModel->getCurriculum();
-                        foreach($currCulumList as $curriculum): 
-                    ?>
+                                include_once '../../model/CurriculumModel.php';
+                                $currCulumModel = new CurriculumModel($DB_con);
+                                $currCulumList = $currCulumModel->getCurriculum();
+                                foreach($currCulumList as $curriculum): 
+                            ?>
                             <?php $selected=($curriculum['gradelevel'] ==  $studentInfo['curr_grdlevel'])? "selected" : ""; ?>
                             <option <?= $selected ?> value=<?= $curriculum['gradelevel'] ?>>
                                 <?= $curriculum['gradename'] ?>
@@ -231,12 +235,12 @@
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="currGradeLevel" style="display:block;">Gender</label>
+                        <label for="gender" style="display:block;">Gender</label>
                         <div class="btn-group btn-toggle btn-group-sm gender" style="width: 100%">
                             <?php 
-                        $activeGender = "'btn btn-primary active'";
-                        $inActiveGender = "'btn btn-light'";
-                    ?>
+                                $activeGender = "'btn btn-primary active'";
+                                $inActiveGender = "'btn btn-light'";
+                            ?>
                             <input type='text' name="gender" id="hiddenGender" value="m" hidden />
                             <input type="button" id="male"
                                 class=<?php echo ($studentInfo['gender']=='m')? $activeGender:$inActiveGender; ?>
@@ -262,7 +266,103 @@
                 </div>
             </div>
             <div id="tab2" class="tabcontent">
-                <h4>Family Background</h4>
+                <h4>Parents/Guardian</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="role">Role</label>
+                        <input type="text" class="form-control form-control-sm" name="role"
+                            value='<?= $parentInfo['role'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="plast_name">Last Name</label>
+                        <input type="text" class="form-control form-control-sm" name="plast_name"
+                            value='<?= $parentInfo['plast_name'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="pfirst_name">First Name</label>
+                        <input type="text" class="form-control form-control-sm" name="pfirst_name"
+                            value='<?= $parentInfo['pfirst_name'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="pmiddle_name">First Name</label>
+                        <input type="text" class="form-control form-control-sm" name="pmiddle_name"
+                            value='<?= $parentInfo['pmiddle_name'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="psex" style="display:block;">Gender</label>
+                        <div class="btn-group btn-toggle btn-group-sm gender" style="width: 100%">
+                            <?php 
+                                $activeGender = "'btn btn-primary active'";
+                                $inActiveGender = "'btn btn-light'";
+                            ?>
+                            <input type='text' name="psex" id="hiddenGender" value="m" hidden />
+                            <input type="button" id="male"
+                                class=<?php echo ($parentInfo['psex']=='m')? $activeGender:$inActiveGender; ?>
+                                value="Male">
+                            <input type="button" id="female"
+                                class=<?php echo ($parentInfo['psex']=='f')? $activeGender:$inActiveGender; ?>
+                                value="Female">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" class="form-control form-control-sm" name="occupation"
+                            value='<?= $parentInfo['occupation'] ?>'>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="VSUconnected" style="display:block;">VSU Connected</label>
+                        <div class="btn-group btn-toggle btn-group-sm VSUconnected" style="width: 100%">
+                            <?php 
+                                $activeAnswer = "'btn btn-primary active'";
+                                $inActiveAnswer = "'btn btn-light'";
+                            ?>
+                            <input type='text' name="VSUconnected" id="hiddenGender" value="No" hidden />
+                            <input type="button" id="no"
+                                class=<?php echo ($parentInfo['VSUconnected']=='No')? $activeAnswer:$inActiveAnswer; ?>
+                                value="No">
+                            <input type="button" id="yes"
+                                class=<?php echo ($parentInfo['VSUconnected']=='Yes')? $activeAnswer:$inActiveAnswer; ?>
+                                value="Yes">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4">
+                        <label for="deptoffice">Dept. Office</label>
+                        <input type="text" class="form-control form-control-sm" id="deptoffice" name="deptoffice" 
+                        value="<?= $parentInfo["deptoffice"] ?>" disabled>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="officehead">Office Head</label>
+                        <input type="text" class="form-control form-control-sm" id="officehead" name="officehead" 
+                        value="<?= $parentInfo["officehead"] ?>" disabled>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="officeAdd">Office Address</label>
+                        <input type="text" class="form-control form-control-sm" id="officeAdd" name="officeAdd" 
+                        value="<?= $parentInfo["officeAdd"] ?>" disabled>
+                    </div>
+                </div>
+                <hr>
+                <h4>Siblings</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="role">Name</label>
+                        <input type="text" class="form-control form-control-sm" name="role"
+                            value='<?= $parentInfo['role'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="birthDate">Birthdate</label>
+                        <div class="input-group input-group-sm">
+                            <input type="date" class="form-control form-control-plaindate" name="birthDate"
+                                value='<?= $studentInfo['dob'] ?>'>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4"></div>
+                </div>
                 <hr>
                 <div class="pull-right">
                     <button type="button" class="btn btn-sm btn-light" style="width: 150px;"
@@ -315,6 +415,24 @@ $(document).ready(function() {
             $("#hiddenGender").val("f");
         } else {
             $("#hiddenGender").val("m");
+        }
+    });
+    $('.VSUconnected').click(function() {
+        $(this).find('.btn').toggleClass('active');
+        if ($(this).find('.btn-primary').length > 0) {
+            $(this).find('.btn').toggleClass('btn-primary');
+        }
+        $(this).find('.btn').toggleClass('btn-light');
+        if ($(this).find('.active').val() == "Yes") {
+            $("#hiddenGender").val("Yes");
+            document.getElementById('deptoffice').disabled = false;
+            document.getElementById('officehead').disabled = false;
+            document.getElementById('officeAdd').disabled = false;
+        } else {
+            $("#hiddenGender").val("No");
+            document.getElementById('deptoffice').disabled = true;
+            document.getElementById('officehead').disabled = true;
+            document.getElementById('officeAdd').disabled = true;
         }
     });
 
