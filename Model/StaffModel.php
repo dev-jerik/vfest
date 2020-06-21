@@ -5,6 +5,53 @@
             parent::__construct($DB_CON);
         }
 
+        public function searchStaff($search=""){
+            $sql = "SELECT * FROM tbl_personproof 
+                    WHERE l_name LIKE '%".$search."%'
+                    OR f_name LIKE '%".$search."%' ORDER BY perID DESC";                    
+            return $this->executeQuery($sql, null, "fetchAll");
+        }
+
+        public function getStaffInfo($staffId) {
+            $sql = "SELECT * FROM tbl_personproof
+                    WHERE tbl_personproof.perID = {$staffId};";
+            return $this->executeQuery($sql);
+        }
+
+
+        public function updateStaff($perID, $lastName, $firstName, $middleName, $sdob, $ssex, $sphone, $scivilstatus,
+            $shome_add, $eligibility) {
+                $sql ="UPDATE tbl_personproof SET l_name=:lastName, f_name=:firstName, m_name=:middleName,
+                sdob=:sdob, ssex=:ssex, sphone=:sphone, scivilstatus=:scivilstatus, shome_add=:shome_add, eligibility=:eligibility
+                WHERE perID=:perID";
+                
+                $arrayParam = array("lastName"=>$lastName, "firstName"=>$firstName,
+                "middleName"=>$middleName, "sdob"=>$sdob, "ssex"=>$ssex, "sphone"=>$sphone, "scivilstatus"=>$scivilstatus,
+                "shome_add"=>$shome_add, "eligibility"=>$eligibility, "perID"=>$perID);
+               
+                $this->executeQuery($sql, $arrayParam, null);    
+        }
+
+        public function saveStaff($perId, $lastName, $firstName, $middleName, $sdob, $ssex, $sphone, $scivilstatus,
+            $shome_add, $eligibility) {
+            $sql ="INSERT INTO tbl_personproof VALUES(:perId, :lastName, :firstName, :middleName,
+            :sdob, :ssex, :sphone, :scivilstatus, :shome_add, :eligibility)";
+            
+            $arrayParam = array("perId"=>$perId, "lastName"=>$lastName, "firstName"=>$firstName,
+            "middleName"=>$middleName, "sdob"=>$sdob, "ssex"=>$ssex, "sphone"=>$sphone, "scivilstatus"=>$scivilstatus,
+            "shome_add"=>$shome_add, "eligibility"=>$eligibility);
+           
+            $this->executeQuery($sql, $arrayParam, null);    
+        }
+
+        public function getLastID() {
+            $sql = "SELECT * FROM tbl_personproof WHERE perID = ( SELECT Max(perID) FROM tbl_personproof)";
+            return $this->executeQuery($sql);
+        }
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         public function getDept($deptID){
             $sql = "SELECT * FROM department where  deptID=".$deptID;
             $data = $this->executeQuery($sql);
