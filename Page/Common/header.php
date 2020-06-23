@@ -63,7 +63,9 @@
             <a href="staff_files.php"
                 class=<?php echo ($_SESSION['active_page'] == "admin/staff_files")? "active":"";?>>School Staff 
                 Files</a>
-            <a href="#classfiles">Class Files</a>
+            <a href="class_files.php"
+                class=<?php echo ($_SESSION['active_page'] == "admin/class_files")? "active":"";?>>Class Staff 
+                Files</a>
             <?php endif; ?>
             <!-- END of Admin Menu -->
 
