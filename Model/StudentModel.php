@@ -53,9 +53,4 @@
             $this->executeQuery($sql, $arrayParam, null);    
         }
 
-        public function deleteStudent($studId) {
-            $sql ="DELETE FROM tbl_students WHERE tbl_students.studID = {$studId}";
-            $this->executeQuery($sql);  
-        }
-
     }

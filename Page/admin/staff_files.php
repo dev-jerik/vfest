@@ -49,8 +49,6 @@
 
                         <button type="submit" style="border:none; background:none"><i class="fa fa-pencil-square-o text-warning"
                                 style="padding:4px;"></i></button>
-                        <button type="submit" style="border:none; background:none"><i class="fa fa-trash-o text-warning"
-                                style="padding:4px;"></i></button>
                     </form>
                 </td>
             </tr>

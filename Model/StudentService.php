@@ -33,19 +33,11 @@
 									<input value={$student['studID']} name='studId' hidden>
 									<button type='submit' style='border:none; background:none'><i class='fa fa-pencil-square-o text-warning'
 											style='padding:4px;'></i></button>
-			                        <a href='#myModal' class='trigger-btn delete' data-toggle='modal' style='border:none; background:none'>
-			                                <i class='fa fa-trash-o text-warning' style='padding:4px;''></i></a>
 								</form>
 							</td>
 						</tr>";	
 			}
 		}		
 		echo $output;
-	}
-
-	function deleteStudent($search) {
-		$studModel = new StudentModel($GLOBALS['DB_con']);
-		$studentList = $studModel->deleteStudent($search);
-		searchStudent("");
 	}
  ?>

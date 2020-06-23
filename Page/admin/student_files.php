@@ -49,34 +49,12 @@
 
                         <button type="submit" style="border:none; background:none"><i class="fa fa-pencil-square-o text-warning"
                                 style="padding:4px;"></i></button>
-                        <a href="#myModal" class="trigger-btn openDelete"  data-id="<?php echo $student['studID']; ?>" data-toggle="modal" style="border:none; background:none">
-                                <i class="fa fa-trash-o text-warning" style="padding:4px;"></i></a>
                     </form>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-
-    <div id="myModal" class="modal fade">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Are you sure?</h4>  
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Do you really want to delete this records? </p>
-                    <input value="" name="studId" id="studId" hidden>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger delete" data-dismiss="modal">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <!--Script Here-->
@@ -87,20 +65,6 @@ $(document).ready(function() {
         $.post("../../model/StudentService.php", {
                 search: searchValue,
                 action: "searchStudent"
-            },
-            function(data) {
-                $("#studentList").html(data);
-            }
-        );
-    });
-    $('.openDelete').click(function() {
-        document.getElementById("studId").value = $(this).data('id');
-    });
-    $('.delete').click(function() {
-        var searchValue = document.getElementById("studId").value;
-        $.post("../../model/StudentService.php", {
-                search: searchValue,
-                action: "deleteStudent"
             },
             function(data) {
                 $("#studentList").html(data);
