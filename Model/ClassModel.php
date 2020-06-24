@@ -26,4 +26,12 @@
             return $this->executeQuery($sql, null, "fetchAll");
         }
 
+        public function getClassStudents($year, $levelId) {
+            $sql = "SELECT stud.* FROM tbl_class as class
+                    INNER JOIN tbl_students stud on stud.studID = class.studID
+                    WHERE class.sy = {$year} AND class.gradelevel = {$levelId}";
+
+            return $this->executeQuery($sql, null, "fetchAll");
+        }
+
     }

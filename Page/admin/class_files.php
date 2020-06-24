@@ -50,8 +50,8 @@
                                 echo $totalStudent['total']; 
                                 $overallTotal+=$totalStudent['total'];
                             ?></td>
-                            <td><a id="edit" href="#">Students</a></td>
-                            <td><a id="edit" href="#">Subjects</a></td>
+                            <td><a id="viewStudents" href="class_view_students.php?year=<?php echo $year; ?>&levelId=<?php echo $class['gradelevel']; ?>&level=<?php echo $class['gradename']; ?>">Students</a></td>
+                            <td><a id="viewSubjects" href="#">Subjects</a></td>
                         </tr>
                         <?php endforeach; ?>
                         <tr>
