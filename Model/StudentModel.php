@@ -20,6 +20,18 @@
             return $this->executeQuery($sql);
         }
 
+        public function getStudentParentInfo($studId) {
+            $sql = "SELECT tbl_parents.*, tbl_pupilparents.role
+                    FROM tbl_parents, tbl_pupilparents
+                    WHERE tbl_parents.PID = (SELECT tbl_pupilparents.PID FROM tbl_pupilparents WHERE tbl_pupilparents.studID = {$studId})";
+            return $this->executeQuery($sql, null, "fetchAll");
+        }
+
+        public function getStudentSiblingsInfo($studId) {
+            $sql = "SELECT * FROM tbl_siblings WHERE studID = {$studId}";
+            return $this->executeQuery($sql, null, "fetchAll");
+        }
+
         public function searchStudent($search=""){
             $sql = "SELECT * FROM tbl_students 
                     WHERE last_name LIKE '%".$search."%'

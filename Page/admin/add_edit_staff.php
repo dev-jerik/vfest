@@ -45,6 +45,9 @@
         // Create empty student object
         $staffInfo = array("l_name"=>"", "f_name"=>"", "m_name"=>"", "ssex"=>"m", 
         "sdob"=>"", "sphone"=>"", "scivilstatus"=>"", "shome_add"=>"", "eligibility"=>"");
+
+        $staffBackgroundInfo = array("level"=>"", "perID"=>"", "degree"=>"", "school"=>"", 
+        "yrstart"=>"", "yrend"=>"");
     } else if ($action == "edit") {
         $header="Edit Staff";
         // Fix refresh browser
@@ -55,6 +58,12 @@
         $perId = $_SESSION['perID'];
         
         $staffInfo = $staffModel->getStaffInfo($perId);
+        $staffBackgroundInfo = $staffModel->getStaffBackgroundInfo($perId);
+
+        if($staffBackgroundInfo == null){
+            $staffBackgroundInfo = array("level"=>"", "perID"=>"", "degree"=>"", "school"=>"", 
+            "yrstart"=>"", "yrend"=>"");
+        }
     } 
     
 
@@ -136,6 +145,12 @@
     <div class="tab bg-light">
         <div class="tab-cell">
             <button class="tablinks active" id="tabLink1">Staff Profile</button>
+        </div>
+        <div class="tab-cell">
+            <button class="tablinks" id="tabLink2">Educational Background</button>
+        </div>
+        <div class="tab-cell">
+            <button class="tablinks" id="tabLink3">Work History</button>
         </div>
     </div>
     <?php foreach($error as $err):?>
@@ -219,16 +234,70 @@
                             value='<?= $staffInfo['eligibility']?>'>
                     </div>
                 </div>
-
+                <hr>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-sm btn-success" style="width: 150px;"
+                        onclick="selectedTab(event, 'tab2', 'tabLink2')">
+                        Next
+                    </button>
+                </div>
+            </div>
+            <div id="tab2" class="tabcontent">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="degree">Degree</label>
+                        <input type="text" class="form-control form-control-sm" name="degree"
+                            value='<?= $staffBackgroundInfo['degree'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="yrstart">Year Started</label>
+                        <input type="text" class="form-control form-control-sm" name="yrstart"
+                            value='<?= $staffBackgroundInfo['yrstart'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="yrend">Year Ended</label>
+                        <input type="text" class="form-control form-control-sm" name="yrend"
+                            value='<?= $staffBackgroundInfo['yrend'] ?>'>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="school">School Name</label>
+                        <input type="text" class="form-control form-control-sm" name="school"
+                            value='<?= $staffBackgroundInfo['school'] ?>'>
+                    </div>
+                </div>
+                <hr>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-sm btn-light" style="width: 150px;"
+                        onclick="selectedTab(event, 'tab1', 'tabLink1')">
+                        Back
+                    </button>
+                    <button type="button" class="btn btn-sm btn-success" style="width: 150px;"
+                        onclick="selectedTab(event, 'tab3', 'tabLink3')">
+                        Next
+                    </button>
+                </div>
+            </div>
+            <div id="tab3" class="tabcontent">
+                <h4>Work Info</h4>
+                
                 <hr>
                 <?php if($_SESSION['action']=="add"): ?>
                 <div class="pull-right">
+                    <button type="button" class="btn btn-sm btn-light" style="width: 150px;"
+                        onclick="selectedTab(event, 'tab2', 'tabLink2')">
+                        Back
+                    </button>
                     <button type="submit" class="btn btn-sm btn-success" style="width: 150px;" name="save">Save</button>
                 </div>
                 <?php endif; ?>
                 <?php if($_SESSION['action']=="edit"): ?>
                 <div class="pull-right">
-                    <button type="submit" class="btn btn-sm btn-success" style="width: 150px;" name="edit">Update</button>
+                    <button type="button" class="btn btn-sm btn-light" style="width: 150px;"
+                        onclick="selectedTab(event, 'tab2', 'tabLink2')">
+                        Back
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-success" style="width: 150px;"
+                        name="edit">Update</button>
                 </div>
                 <?php endif; ?>
             </div>
@@ -252,5 +321,23 @@ $(document).ready(function() {
         }
     });
 });
+
+function selectedTab(evt, tab, tabLink) {
+    var i, tabcontent, tablinks;
+    tabcontent = $(".container").find(".tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    // tablinks = $(".tablinks");
+    // for (i = 0; i < tablinks.length; i++) {
+    //     tablinks[i].className = tablinks[i].className.replace("active", "");
+    // }
+    $('#' + tab).css('display', 'block');
+    tabLinks = $(".tab").find(".tablinks");
+    for (i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].className = tabLinks[i].className.replace("active", "");
+    }
+    $('#' + tabLink).toggleClass('active');
+};
 </script>
 <?php include "../common/footer.php"; ?>

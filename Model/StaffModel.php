@@ -18,6 +18,11 @@
             return $this->executeQuery($sql);
         }
 
+        public function getStaffBackgroundInfo($staffId) {
+            $sql = "SELECT * FROM tbl_educbg WHERE perID = {$staffId};";
+            return $this->executeQuery($sql);
+        }
+
 
         public function updateStaff($perID, $lastName, $firstName, $middleName, $sdob, $ssex, $sphone, $scivilstatus,
             $shome_add, $eligibility) {

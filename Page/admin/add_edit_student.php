@@ -42,9 +42,12 @@
         "phone"=>"", "school_add"=>"", "curr_grdlevel"=>"", "fam_add"=>"", 
         "teacher"=>"");
 
-        $parentInfo = array("PID" => "", "role" => "", "plast_name"=>"", "pfirst_name"=>"", "pmiddle_name"=>"",
+        $parentInfo = array(array("PID" => "", "role" => "", "plast_name"=>"", "pfirst_name"=>"", "pmiddle_name"=>"",
         "psex"=>"m", "occupation"=>"", "VSUconnected"=>"No", "deptoffice"=>"", "officehead"=>"",
-        "officeAdd"=>"");
+        "officeAdd"=>""));
+
+        $siblingsInfo = array(array("studID" => "", "givenName" => "", "dob"=>""));
+
     } else if ($action == "edit") {
         $header="Edit Student";
         // Fix refresh browser
@@ -55,6 +58,18 @@
         $studId = $_SESSION['studId'];
         
         $studentInfo = $studModel->getStudentInfo($studId);
+        $parentInfo = $studModel->getStudentParentInfo($studId);
+        $siblingsInfo = $studModel->getStudentSiblingsInfo($studId);
+
+        if($parentInfo == null){
+            $parentInfo = array(array("PID" => "", "role" => "", "plast_name"=>"", "pfirst_name"=>"", "pmiddle_name"=>"",
+            "psex"=>"m", "occupation"=>"", "VSUconnected"=>"No", "deptoffice"=>"", "officehead"=>"",
+            "officeAdd"=>""));
+        }
+        if($siblingsInfo == null){
+            $siblingsInfo = array(array("studID" => "", "givenName" => "", "dob"=>""));
+        }
+
     } 
     
 
@@ -267,6 +282,8 @@
             </div>
             <div id="tab2" class="tabcontent">
                 <h4>Parents/Guardian</h4>
+                <?php 
+                foreach ($parentInfo as $parentInfo):  ?>
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="role">Role</label>
@@ -347,22 +364,26 @@
                     </div>
                 </div>
                 <hr>
+                <?php endforeach; ?>
                 <h4>Siblings</h4>
+                <?php 
+                foreach ($siblingsInfo as $siblingsInfo):  ?>
                 <div class="form-row">
                     <div class="form-group col-md-8">
-                        <label for="role">Name</label>
-                        <input type="text" class="form-control form-control-sm" name="role"
-                            value='<?= $parentInfo['role'] ?>'>
+                        <label for="givenName">Name</label>
+                        <input type="text" class="form-control form-control-sm" name="givenName"
+                            value='<?= $siblingsInfo['givenName'] ?>'>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="birthDate">Birthdate</label>
+                        <label for="sibBirthDate">Birthdate</label>
                         <div class="input-group input-group-sm">
-                            <input type="date" class="form-control form-control-plaindate" name="birthDate"
-                                value='<?= $studentInfo['dob'] ?>'>
+                            <input type="date" class="form-control form-control-plaindate" name="sibBirthDate"
+                                value='<?= $siblingsInfo['dob'] ?>'>
                         </div>
                     </div>
                     <div class="form-group col-md-4"></div>
                 </div>
+                <?php endforeach; ?>
                 <hr>
                 <div class="pull-right">
                     <button type="button" class="btn btn-sm btn-light" style="width: 150px;"
@@ -377,6 +398,19 @@
             </div>
             <div id="tab3" class="tabcontent">
                 <h4>Last School</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="schoolName">School Name</label>
+                        <input type="text" class="form-control form-control-sm" name="schoolName"
+                            value='<?= $studentInfo['last_school'] ?>'>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="schoolAddress">School Address</label>
+                        <input type="text" class="form-control form-control-sm" name="schoolAddress"
+                            value='<?= $studentInfo['school_add'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4"></div>
+                </div>
                 <hr>
                 <?php if($_SESSION['action']=="add"): ?>
                 <div class="pull-right">
