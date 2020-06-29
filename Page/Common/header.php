@@ -66,18 +66,59 @@
             <a href="class_files.php"
                 class=<?php echo ($_SESSION['active_page'] == "admin/class_files")? "active":"";?>>Class Staff 
                 Files</a>
+            <a href="profile.php"
+                class=<?php echo ($_SESSION['active_page'] == "admin/profile")? "active":"";?>>My Profile 
+            </a>
             <?php endif; ?>
             <!-- END of Admin Menu -->
 
+            <!-- Accounting Menu -->
+            <?php if($_SESSION['user_code'] == "accounting"): ?>
+            <a href="index.php" class=<?php echo ($_SESSION['active_page'] == "accountant/home")? "active":"";?>> Home
+            </a>
+            <a href="#"
+                class=<?php echo ($_SESSION['active_page'] == "accountant/student_fees")? "active":"";?>>Student
+                Fees</a>
+            <a href="#"
+                class=<?php echo ($_SESSION['active_page'] == "accountant/school_fees")? "active":"";?>>School  
+                Fees</a>
+            <a href="profile.php"
+                class=<?php echo ($_SESSION['active_page'] == "accountant/profile")? "active":"";?>>My Profile 
+            </a>
+            <?php endif; ?>
+            <!-- END of Accounting Menu -->
+
+            <!-- Principal Menu -->
+            <?php if($_SESSION['user_code'] == "principal"): ?>
+            <a href="index.php" class=<?php echo ($_SESSION['active_page'] == "principal/home")? "active":"";?>> Home
+            </a>
+            <a href="student_files.php"
+                class=<?php echo ($_SESSION['active_page'] == "principal/student_files")? "active":"";?>>Student
+                Files</a>
+            <a href="staff_files.php"
+                class=<?php echo ($_SESSION['active_page'] == "principal/staff_files")? "active":"";?>>School Staff 
+                Files</a>
+            <a href="class_files.php"
+                class=<?php echo ($_SESSION['active_page'] == "principal/class_files")? "active":"";?>>Class Staff 
+                Files</a>
+            <a href="profile.php"
+                class=<?php echo ($_SESSION['active_page'] == "principal/profile")? "active":"";?>>My Profile 
+            </a>
+            <?php endif; ?>
+            <!-- END of Principal Menu -->
+
+            <!-- Teacher Menu -->
             <?php if($_SESSION['user_code'] == "teacher"): ?>
             <a href="index.php" class=<?php echo ($_SESSION['active_page'] == "teacher/home")? "active":"";?>>
                 Home </a>
             <a href="#classfiles"
                 class=<?php echo ($_SESSION['active_page'] == "teacher/class_files")? "active":"";?>>Class
                 Files</a>
-            <a href="#leaverequest">Leave Request</a>
-            <a href="#myprofile">My Profile</a>
+            <a href="profile.php"
+                class=<?php echo ($_SESSION['active_page'] == "teacher/profile")? "active":"";?>>My Profile 
+            </a>
             <?php endif; ?>
+            <!-- END of Teacher Menu -->
 
             <form>
                 <button type=submit name="logout" class="logout text-left">Logout</button>

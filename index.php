@@ -8,7 +8,11 @@
 	if ($user->isLoggedIn()) {
         if(strtoupper($_SESSION['user_code']) == "ADMIN") {
 			header('Location: page/admin/index.php');
-		} else if (strtoupper($_SESSION['user_code']) == "TEACHER") {
+		} else if (strtoupper($_SESSION['user_code']) == "ACCOUNTING") {
+			header('Location: page/accountant/index.php');
+		}else if (strtoupper($_SESSION['user_code']) == "PRINCIPAL") {
+			header('Location: page/principal/index.php');
+		}else if (strtoupper($_SESSION['user_code']) == "TEACHER") {
 			header('Location: page/teacher/index.php');
 		}
     }  
@@ -19,7 +23,11 @@
     	if ($user->doLogin($username, $password)) {
 			if(strtoupper($_SESSION['user_code']) == "ADMIN") {
 				header('Location: page/admin/index.php');
-			} else if (strtoupper($_SESSION['user_code']) == "TEACHER") {
+			} else if (strtoupper($_SESSION['user_code']) == "ACCOUNTING") {
+				header('Location: page/accountant/index.php');
+			}else if (strtoupper($_SESSION['user_code']) == "PRINCIPAL") {
+				header('Location: page/principal/index.php');
+			}else if (strtoupper($_SESSION['user_code']) == "TEACHER") {
 				header('Location: page/teacher/index.php');
 			}
     	} 
