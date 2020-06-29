@@ -11,7 +11,7 @@
     $levelId = $_GET['levelId'];
     $level = $_GET['level'];
 
-    $info = $classModel->getClassStudents($year, $levelId);
+    $info = $classModel->getClassSubjects($year, $levelId);
     $teacher = $classModel->getClassTeacher($year, $levelId);
     if($teacher == null){
         $teacher = array("perID" => "", "teacher"=>"");
@@ -21,7 +21,7 @@
 <div class="main">
     <div class="header clearfix" style="border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: 8px;">
         <div style="float:left">
-            <h4 class="text-success">Class Student List</h4>
+            <h4 class="text-success">Class Subject List</h4>
         </div>
     </div>
     <div class="container-fluid">
@@ -38,7 +38,7 @@
                         <thead style="text-align: center">
                             <tr>
                                 <th width="10%"> # </th>
-                                <th>Students</th>
+                                <th>Subjects</th>
                                 <th width="25%">Action</th>
                             </tr>
                         </thead>
@@ -46,15 +46,15 @@
                             <?php 
                                 $ctr=0;
                                 if($info == null){
-                                    echo "<tr><td colspan='3' style='text-align: center'> No students enrolled in this class</td></tr>";
+                                    echo "<tr><td colspan='3' style='text-align: center'> No subjects assigned in this class</td></tr>";
                                 }
                                 foreach ($info as $students):  
                                 $ctr+=1;
                             ?>
                             <tr>
                                 <td style="text-align: center"><?php echo $ctr; ?></td>
-                                <td>&nbsp;&nbsp;&nbsp;<?php echo $students['last_name'].", ".$students['first_name']." ".$students['middle_name']; ?></td>
-                                <td style='text-align:center'><a id='view' href='#' >View Grades</a></td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $students['description']; ?></td>
+                                <td style='text-align:center'><a id='view' href='#' >Update</a></td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>

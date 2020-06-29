@@ -48,6 +48,10 @@
 
         $staffBackgroundInfo = array("level"=>"", "perID"=>"", "degree"=>"", "school"=>"", 
         "yrstart"=>"", "yrend"=>"");
+
+        $getStaffWorkInfo = array("perID"=>"", "date_started"=>"", "position"=>"", "monthly_salary"=>"");
+
+        $getStaffHistoryInfo = null;
     } else if ($action == "edit") {
         $header="Edit Staff";
         // Fix refresh browser
@@ -59,10 +63,15 @@
         
         $staffInfo = $staffModel->getStaffInfo($perId);
         $staffBackgroundInfo = $staffModel->getStaffBackgroundInfo($perId);
+        $getStaffWorkInfo = $staffModel->getStaffWorkInfo($perId);
+        $getStaffHistoryInfo = $staffModel->getStaffHistoryInfo($perId);
 
         if($staffBackgroundInfo == null){
             $staffBackgroundInfo = array("level"=>"", "perID"=>"", "degree"=>"", "school"=>"", 
             "yrstart"=>"", "yrend"=>"");
+        }
+        if($getStaffWorkInfo == null){
+            $getStaffWorkInfo = array("perID"=>"", "date_started"=>"", "position"=>"", "monthly_salary"=>"");
         }
     } 
     
@@ -214,7 +223,7 @@
                     <div class="form-group col-md-4">
                         <label for="scivilstatus">Civil Status</label>
                         <?php $statusList=array('Single','Married', 'Live in',
-                    'Widowed', 'Separate'); ?>
+                            'Widowed', 'Separate'); ?>
                         <select class="custom-select custom-select-sm" name="scivilstatus" required>
                             <option value="0">Please select status</option>';
                             <?php foreach($statusList as $status): ?>
@@ -279,8 +288,52 @@
             </div>
             <div id="tab3" class="tabcontent">
                 <h4>Work Info</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="position">Position</label>
+                        <input type="text" class="form-control form-control-sm" name="position"
+                            value='<?= $getStaffWorkInfo['position'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="date_started">Date Hired</label>
+                        <input type="text" class="form-control form-control-sm" name="date_started"
+                            value='<?= $getStaffWorkInfo['date_started'] ?>'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="monthly_salary">Salary</label>
+                        <input type="text" class="form-control form-control-sm" name="monthly_salary"
+                            value='<?= $getStaffWorkInfo['monthly_salary'] ?>'>
+                    </div>
+                </div>
+                <hr><input id='action' name='action' value='<?php echo $action; ?>' hidden>
+                <div id='teachingHistory'>
+                    <h4>Teaching History</h4>
+                    <p>*This field is for Teacher position</p>
+                    <table class="table table-sm" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th width="20%"> Year </th>
+                                <th>Position</th>
+                                <th width="25%">Grade Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            if($getStaffHistoryInfo == null){
+                                echo "<tr><td colspan='3'>No records found.</td></tr>";
+                            } else {
+                            foreach ($getStaffHistoryInfo as $info):  ?>
+                            <tr>
+                                <td><?php echo $info['SY']; ?></td>
+                                <td>Adviser</td>
+                                <td><?php echo $info['gradename']; ?></td>
+                            </tr>
+                            <?php endforeach; }?>
+                        </tbody>
+                    </table>
+                    <hr>
+                </div>
                 
-                <hr>
                 <?php if($_SESSION['action']=="add"): ?>
                 <div class="pull-right">
                     <button type="button" class="btn btn-sm btn-light" style="width: 150px;"
@@ -338,6 +391,17 @@ function selectedTab(evt, tab, tabLink) {
         tabLinks[i].className = tabLinks[i].className.replace("active", "");
     }
     $('#' + tabLink).toggleClass('active');
+
+    if(tab == 'tab3'){
+        var div =  document.getElementById('teachingHistory');
+        var action = document.getElementById('action');
+        var info = action.value;
+        if(info == 'add'){
+            div.style.display = "none";
+        } else {
+            div.style.display = "block";
+        }
+    }
 };
 </script>
 <?php include "../common/footer.php"; ?>

@@ -23,6 +23,19 @@
             return $this->executeQuery($sql);
         }
 
+        public function getStaffWorkInfo($staffId) {
+            $sql = "SELECT * FROM tbl_servicerec WHERE perID = {$staffId};";
+            return $this->executeQuery($sql);
+        }
+
+        public function getStaffHistoryInfo($staffId) {
+            $sql = "SELECT * 
+                    FROM tbl_sysectionadvi
+                    LEFT JOIN tbl_curriculum ON tbl_sysectionadvi.gradelevel=tbl_curriculum.gradelevel
+                    WHERE tbl_sysectionadvi.secAdviserID = {$staffId};";
+            return $this->executeQuery($sql, null, "fetchAll");
+        }
+
 
         public function updateStaff($perID, $lastName, $firstName, $middleName, $sdob, $ssex, $sphone, $scivilstatus,
             $shome_add, $eligibility) {

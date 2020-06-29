@@ -34,4 +34,20 @@
             return $this->executeQuery($sql, null, "fetchAll");
         }
 
+        public function getClassSubjects($year, $levelId) {
+            $sql = "SELECT tbl_subjects.* 
+                    FROM tbl_subjects
+                    LEFT JOIN tbl_gradesubjects ON tbl_subjects.subID=tbl_gradesubjects.subID
+                    WHERE tbl_gradesubjects.gradelevel = {$levelId}";
+
+            return $this->executeQuery($sql, null, "fetchAll");
+        }
+
+        public function getClassTeacher($year, $levelId) {
+            $sql = "SELECT perID, concat(l_name,', ', f_name,' ',m_name) AS teacher
+                    FROM tbl_personproof  WHERE `perID` = (
+                    SELECT secAdviserID FROM tbl_sysectionadvi WHERE gradelevel = {$levelId} AND SY = {$year} );";
+            return $this->executeQuery($sql);
+        }
+
     }

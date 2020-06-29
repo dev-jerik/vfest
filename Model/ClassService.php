@@ -24,7 +24,7 @@
 	            <td>{$class['gradename']}</td>
 	            <td>{$totalStudent['total']}</td>
 	            <td><a id='viewStudents' href='class_view_students.php?year={$search}&levelId={$class['gradelevel']}&level={$class['gradename']}'>Students</a></td>
-                <td><a id='viewSubjects' href='#'>Subjects</a></td>
+                <td><a id='viewSubjects' href='class_view_subjects.php?year={$search}&levelId={$class['gradelevel']}&level={$class['gradename']}'>Subjects</a></td>
 	        </tr>";
         }
         $output .= "
